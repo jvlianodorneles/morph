@@ -70,6 +70,8 @@ def open_devices():
 
 def emit(active: bool):
     try:
+        with open("/tmp/drag_debug.log", "a") as f:
+            f.write(f"EMIT active={active} at {time.time()}\n")
         sys.stdout.write(json.dumps({"drag_shift": active}) + "\n")
         sys.stdout.flush()
     except (IOError, BrokenPipeError):
@@ -89,12 +91,17 @@ def main():
     shift_pressed = 0
     active_state = False
     last_rescan = time.monotonic()
+    parent_pid = os.getppid()
 
     # Track per-device key state to avoid duplicate press counts
     key_states = {}  # (fd, code) -> bool
 
     try:
         while True:
+            # Check if parent process died
+            if os.getppid() != parent_pid or os.getppid() == 1:
+                break
+
             now = time.monotonic()
             if now - last_rescan > 4.0:
                 last_rescan = now
@@ -116,21 +123,14 @@ def main():
 
             rlist = list(devices.keys())
             if not rlist:
-                time.sleep(1.0)
+                time.sleep(0.5)
                 devices = open_devices()
                 continue
 
-            # Also watch stdin for EOF (when parent Quickshell process exits)
-            rlist.append(sys.stdin.fileno())
-
             try:
-                readable, _, _ = select.select(rlist, [], [], 2.0)
+                readable, _, _ = select.select(rlist, [], [], 1.0)
             except (OSError, select.error):
                 continue
-
-            if sys.stdin.fileno() in readable:
-                # Parent closed stdin or exited
-                break
 
             for fd in readable:
                 if fd not in devices:

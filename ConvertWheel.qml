@@ -56,9 +56,13 @@ Item {
     // Wheel paging & selection
     property int formatPage: 0
     property int selected: -1
+    readonly property var activeAvailableFormats: availableFormats.length > 0
+        ? availableFormats
+        : ((config.preferredFormats && config.preferredFormats.image) || ["PNG", "WEBP", "JPEG", "AVIF", "PDF", "SVG", "GIF", "BMP"])
+
     property var formatResult: Model.prioritizeFormats(
         category,
-        availableFormats,
+        activeAvailableFormats,
         config.preferredFormats,
         config.slotCount || 8,
         formatPage
@@ -227,6 +231,24 @@ Item {
     }
 
     // Background drag + shift detector
+    Timer {
+        id: dismissTimer
+        interval: 350
+        onTriggered: {
+            if (!root.settingsOpen && !root.converting) root.dismiss();
+        }
+    }
+
+    Timer {
+        id: restartListenerTimer
+        interval: 1000
+        onTriggered: {
+            if (root.config.dragShift !== false && !dragListener.running) {
+                dragListener.running = true;
+            }
+        }
+    }
+
     Process {
         id: dragListener
         command: [
@@ -240,15 +262,20 @@ Item {
                 try {
                     var msg = JSON.parse(data.trim());
                     if (msg.drag_shift === true) {
+                        dismissTimer.stop();
+                        cursorPos.running = false;
                         cursorPos.running = true;
                         root.overlayActive = true;
                     } else if (msg.drag_shift === false) {
                         if (!root.settingsOpen && !root.converting) {
-                            root.dismiss();
+                            dismissTimer.restart();
                         }
                     }
                 } catch (e) {}
             }
+        }
+        onExited: (code, status) => {
+            restartListenerTimer.restart();
         }
     }
 
@@ -359,6 +386,7 @@ Item {
             keys: ["text/uri-list"]
 
             onEntered: drag => {
+                dismissTimer.stop();
                 var rawUris = drag.getDataAsString("text/uri-list");
                 var paths = Model.pathsFromUris(rawUris);
                 if (paths.length > 0) {
@@ -367,9 +395,21 @@ Item {
                 }
             }
 
+            onPositionChanged: drag => {
+                dismissTimer.stop();
+                if (root.draggedFiles.length === 0) {
+                    var rawUris = drag.getDataAsString("text/uri-list");
+                    var paths = Model.pathsFromUris(rawUris);
+                    if (paths.length > 0) {
+                        root.requestFormats(paths);
+                        drag.accept(Qt.CopyAction);
+                    }
+                }
+            }
+
             onExited: {
                 if (!root.settingsOpen && !root.converting) {
-                    root.wheelOpened = false;
+                    dismissTimer.restart();
                 }
             }
         }
@@ -377,7 +417,7 @@ Item {
         // The Radial Wheel
         Item {
             id: wheel
-            visible: root.wheelOpened && !root.settingsOpen
+            visible: (root.wheelOpened || root.overlayActive) && !root.settingsOpen
             x: panelWindow.placement.x
             y: panelWindow.placement.y
             width: panelWindow.placement.size
@@ -541,7 +581,13 @@ Item {
                 anchors.fill: parent
                 keys: ["text/uri-list"]
 
+                onEntered: drag => {
+                    dismissTimer.stop();
+                    drag.accept(Qt.CopyAction);
+                }
+
                 onPositionChanged: drag => {
+                    dismissTimer.stop();
                     var s = Model.hit(drag.x, drag.y, width, root.selectionCount);
                     root.selected = s;
                 }
@@ -551,6 +597,7 @@ Item {
                 }
 
                 onDropped: drop => {
+                    dismissTimer.stop();
                     var s = Model.hit(drop.x, drop.y, width, root.selectionCount);
                     if (s >= 0 && s < root.selectionCount) {
                         var chosenFormat = root.wheelSlices[s];
