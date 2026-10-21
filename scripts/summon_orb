@@ -9,8 +9,39 @@ import time
 import urllib.parse
 
 
-def detect_selected_files():
-    # 1. Check text/uri-list in clipboard
+def get_active_window_class():
+    try:
+        out = subprocess.check_output(
+            ["hyprctl", "activewindow", "-j"],
+            stderr=subprocess.DEVNULL,
+            timeout=0.2
+        ).decode("utf-8", "ignore")
+        data = json.loads(out)
+        return data.get("class", ""), data.get("initialClass", "")
+    except Exception:
+        return "", ""
+
+
+def get_flea_selection():
+    try:
+        out = subprocess.check_output(
+            ["qs", "ipc", "-n", "-p", "/usr/share/flea/ui/boot", "call", "flea", "providerState"],
+            stderr=subprocess.DEVNULL,
+            timeout=0.25
+        ).decode("utf-8", "ignore")
+        data = json.loads(out)
+        selected = [p for p in (data.get("selectedPaths") or []) if p and os.path.isfile(p)]
+        if selected:
+            return selected
+        cursor = data.get("cursorPath")
+        if cursor and os.path.isfile(cursor):
+            return [cursor]
+    except Exception:
+        pass
+    return []
+
+
+def read_clipboard_uris():
     try:
         out = subprocess.check_output(
             ["wl-paste", "-t", "text/uri-list"],
@@ -19,13 +50,40 @@ def detect_selected_files():
         ).decode("utf-8", "ignore")
         lines = [l.strip() for l in out.splitlines() if l.strip() and not l.startswith("#")]
         paths = [urllib.parse.unquote(l[7:]) for l in lines if l.startswith("file://")]
-        valid = [p for p in paths if os.path.exists(p)]
+        valid = [p for p in paths if os.path.exists(p) and os.path.isfile(p)]
         if valid:
             return valid
     except Exception:
         pass
+    return []
 
-    # 2. Check plain text clipboard for an existing file path
+
+def detect_selected_files():
+    cls, init_cls = get_active_window_class()
+
+    # 1. If Flea is active, query Flea directly (fastest and most accurate)
+    if "flea" in cls.lower() or "flea" in init_cls.lower():
+        files = get_flea_selection()
+        if files:
+            return files
+
+    # 2. Try copying current selection from active window (Nautilus, Dolphin, Thunar, etc.)
+    # First clear the clipboard so we don't accidentally pick up an old stale file
+    try:
+        subprocess.run(["wl-copy", "--clear"], check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        # Small pause then send pure Ctrl+C
+        time.sleep(0.04)
+        subprocess.run(["wtype", "-M", "ctrl", "-k", "c", "-m", "ctrl"], check=False, timeout=0.3)
+        time.sleep(0.08)
+    except Exception:
+        pass
+
+    # Check if a newly selected file was copied into clipboard
+    files = read_clipboard_uris()
+    if files:
+        return files
+
+    # 3. Fallback: check plain text in clipboard in case user copied a filepath
     try:
         out = subprocess.check_output(
             ["wl-paste"],
@@ -37,22 +95,10 @@ def detect_selected_files():
     except Exception:
         pass
 
-    # 3. Try to copy selection from the focused window (Flea, Nautilus, Dolphin, etc.)
-    try:
-        subprocess.run(["wtype", "-M", "ctrl", "-k", "c", "-m", "ctrl"], check=False, timeout=0.3)
-        time.sleep(0.06)
-        out = subprocess.check_output(
-            ["wl-paste", "-t", "text/uri-list"],
-            stderr=subprocess.DEVNULL,
-            timeout=0.2
-        ).decode("utf-8", "ignore")
-        lines = [l.strip() for l in out.splitlines() if l.strip() and not l.startswith("#")]
-        paths = [urllib.parse.unquote(l[7:]) for l in lines if l.startswith("file://")]
-        valid = [p for p in paths if os.path.exists(p)]
-        if valid:
-            return valid
-    except Exception:
-        pass
+    # 4. If Flea was running in background, check its cursor as fallback
+    files = get_flea_selection()
+    if files:
+        return files
 
     return []
 

@@ -21,7 +21,7 @@ r = {}
 local ok, b = pcall(function()
   return hl.bind(\"$shortcut\", function()
     hl.exec_cmd(\"$summon_script\")
-  end, { description = 'Convert Orb [$token]' })
+  end, { description = 'Convert Orb [$token]', release = true })
 end)
 if ok and b then table.insert(r, b) end
 _G.__convert_orb_bindings = r"
