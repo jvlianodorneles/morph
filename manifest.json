@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "dorneles.convert-orb",
+  "name": "Convert Orb",
+  "version": "0.1.0",
+  "author": "Juliano Dorneles",
+  "license": "MIT",
+  "description": "Radial format conversion orb powered by SimplyConvertFile. Drag files holding Shift to convert instantly.",
+  "kinds": [
+    "menu"
+  ],
+  "entryPoints": {
+    "menu": "ConvertWheel.qml"
+  },
+  "keepLoaded": true
+}

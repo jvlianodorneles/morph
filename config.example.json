@@ -1,0 +1,17 @@
+{
+  "diameter": 280,
+  "animation": true,
+  "slotCount": 8,
+  "outputDirectoryMode": "source",
+  "customOutputPath": "",
+  "notifications": true,
+  "dragShift": true,
+  "shortcut": "SUPER + ALT + C",
+  "preferredFormats": {
+    "image": ["PNG", "WEBP", "JPEG", "AVIF", "PDF", "SVG", "GIF", "BMP"],
+    "video": ["MP4", "WEBM", "MKV", "MP3", "GIF", "MOV", "AVI"],
+    "audio": ["MP3", "WAV", "FLAC", "OGG", "AAC", "OPUS", "M4A"],
+    "document": ["PDF", "DOCX", "ODT", "TXT", "EPUB", "HTML"],
+    "archive": ["ZIP", "TAR.GZ", "TAR.XZ", "7Z"]
+  }
+}
