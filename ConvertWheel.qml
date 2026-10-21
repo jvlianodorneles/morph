@@ -56,9 +56,7 @@ Item {
     // Wheel paging & selection
     property int formatPage: 0
     property int selected: -1
-    readonly property var activeAvailableFormats: availableFormats.length > 0
-        ? availableFormats
-        : ((config.preferredFormats && config.preferredFormats.image) || ["PNG", "WEBP", "JPEG", "AVIF", "PDF", "SVG", "GIF", "BMP"])
+    readonly property var activeAvailableFormats: availableFormats
 
     property var formatResult: Model.prioritizeFormats(
         category,
@@ -90,6 +88,8 @@ Item {
             }
             if (payload.files && Array.isArray(payload.files) && payload.files.length > 0) {
                 settingsOpen = false;
+                availableFormats = [];
+                wheelOpened = false;
                 overlayActive = true;
                 cursorPos.running = false;
                 cursorPos.running = true;
@@ -205,6 +205,7 @@ Item {
         id: userConfigFile
         path: root.configPath
         watchChanges: true
+        atomicWrites: true
         onFileChanged: reload()
         onLoaded: {
             var parsed = Model.parse(text(), root.config);
@@ -212,16 +213,15 @@ Item {
         }
     }
 
-    // Settings writer
-    FileView {
-        id: settingsWriter
-        path: root.configPath
-        preload: false
-        blockLoading: true
-        atomicWrites: true
-        onSaved: {
+    // Settings saver process
+    Process {
+        id: saveProc
+        command: [
+            "/usr/bin/python3",
+            decodeURIComponent(Qt.resolvedUrl("scripts/save_settings.py").toString().replace(/^file:\/\//, ""))
+        ]
+        onExited: (code, status) => {
             userConfigFile.reload();
-            root.closeSettings();
         }
     }
 
@@ -309,11 +309,14 @@ Item {
                         root.wheelOpened = true;
                         cursorPos.running = false;
                         cursorPos.running = true;
+                        ringCanvas.requestPaint();
                     } else {
                         root.wheelOpened = false;
+                        root.dismiss();
                     }
                 } catch (e) {
                     root.wheelOpened = false;
+                    root.dismiss();
                 }
             }
         }
@@ -348,6 +351,8 @@ Item {
                 var p = text.trim();
                 if (p.length > 0) {
                     root.settingsOpen = false;
+                    root.availableFormats = [];
+                    root.wheelOpened = false;
                     root.overlayActive = true;
                     root.cursorPos.running = false;
                     root.cursorPos.running = true;
@@ -482,10 +487,32 @@ Item {
             }
         }
 
+        // Loading indicator while queryProc is fetching formats
+        Rectangle {
+            id: loadingIndicator
+            visible: root.overlayActive && !root.wheelOpened && !root.settingsOpen
+            x: Math.round(panelWindow.placement.x + (panelWindow.placement.size - width) / 2)
+            y: Math.round(panelWindow.placement.y + (panelWindow.placement.size - height) / 2)
+            width: Commons.Style.space(72)
+            height: width
+            radius: width / 2
+            color: Commons.Color.menu.background
+            border.width: 2
+            border.color: Commons.Color.accent
+
+            Text {
+                anchors.centerIn: parent
+                text: "..."
+                font.bold: true
+                font.pixelSize: Commons.Style.space(20)
+                color: Commons.Color.accent
+            }
+        }
+
         // The Radial Wheel
         Item {
             id: wheel
-            visible: (root.wheelOpened || root.overlayActive) && !root.settingsOpen
+            visible: root.wheelOpened && root.overlayActive && !root.settingsOpen && root.selectionCount > 0
             x: panelWindow.placement.x
             y: panelWindow.placement.y
             width: panelWindow.placement.size
@@ -534,6 +561,12 @@ Item {
                 onCountChanged: requestPaint()
                 onSurfaceChanged: requestPaint()
                 onSelectedFillChanged: requestPaint()
+
+                Connections {
+                    target: root
+                    function onAvailableFormatsChanged() { ringCanvas.requestPaint(); }
+                    function onWheelOpenedChanged() { if (root.wheelOpened) ringCanvas.requestPaint(); }
+                }
 
                 onPaint: {
                     var c = getContext("2d");
@@ -745,10 +778,10 @@ Item {
                     Text {
                         visible: root.totalPages > 1
                         anchors.verticalCenter: parent.verticalCenter
-                        text: "· " + (root.formatPage + 1) + "/" + root.totalPages
+                        text: "· Pág " + (root.formatPage + 1) + "/" + root.totalPages + " (Scroll ↕ / PgUp / PgDn)"
                         font.family: Commons.Style.font.menuFamily
                         font.pixelSize: Commons.Style.space(9) * wheel.captionScale
-                        color: Commons.Util.alpha(Commons.Color.menu.text, 0.5)
+                        color: Commons.Util.alpha(Commons.Color.menu.text, 0.65)
                     }
                 }
             }
@@ -763,8 +796,17 @@ Item {
 
             onSaveRequested: draft => {
                 var merged = Model.mergeSettings(root.config, draft);
+                root.config = merged;
                 var saveText = JSON.stringify(merged, null, 2) + "\n";
-                settingsWriter.setText(saveText);
+                userConfigFile.setText(saveText);
+                saveProc.command = [
+                    "/usr/bin/python3",
+                    decodeURIComponent(Qt.resolvedUrl("scripts/save_settings.py").toString().replace(/^file:\/\//, "")),
+                    saveText
+                ];
+                saveProc.running = false;
+                saveProc.running = true;
+                root.closeSettings();
             }
             onCanceled: root.closeSettings()
         }
