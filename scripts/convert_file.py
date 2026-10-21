@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """Execute file format conversion using SimplyConvertFile and send desktop notifications."""
 
 import argparse
@@ -17,6 +17,23 @@ try:
     from simplyconvertfile.core import ConverterFactory
     from simplyconvertfile.converters.helpers.file_manager import FileManager
     from simplyconvertfile.utils.validation import FileValidator
+    import simplyconvertfile.ui as scf_ui
+
+    # Suppress all GTK progress and dialog windows completely
+    class SilentDialog:
+        def __init__(self, *args, **kwargs):
+            self.dialog = self
+            self.progressbar = self
+        def connect(self, *args, **kwargs): pass
+        def set_pulse_step(self, *args, **kwargs): pass
+        def show_all(self): pass
+        def hide(self): pass
+        def destroy(self): pass
+        def run(self): return 0
+
+    scf_ui.ProgressbarDialogWindow = SilentDialog
+    scf_ui.InfoDialogWindow = SilentDialog
+    scf_ui.DialogWindow = SilentDialog
 except Exception as e:
     sys.stdout.write(json.dumps({
         "success": False,
@@ -39,16 +56,23 @@ def send_notification(summary: str, body: str, urgency: str = "normal", icon: st
 
 def convert_single(file_path: Path, target_fmt: str, output_dir: Path | None = None) -> tuple[bool, Path | None, str | None]:
     try:
-        converter = ConverterFactory.create_converter(file_path, target_fmt.upper())
+        if output_dir:
+            output_dir.mkdir(parents=True, exist_ok=True)
+
+        converter = ConverterFactory.create_converter(
+            file=file_path,
+            target_format=target_fmt.upper(),
+            batch_mode=True,
+            output_dir=output_dir,
+        )
         if not converter:
             return False, None, f"No converter available for {file_path.name} -> {target_fmt}"
 
-        if output_dir:
-            output_dir.mkdir(parents=True, exist_ok=True)
-            converter.output_dir = output_dir
-            converter.file_manager = FileManager(converter.file, converter.format, output_dir)
-            converter.target_file = converter.file_manager.get_target_file()
-            converter.valid_target_file()
+        converter.batch_mode = True
+        if hasattr(converter, "conversion_manager") and converter.conversion_manager:
+            converter.conversion_manager.batch_mode = True
+        if hasattr(converter, "error_manager") and converter.error_manager:
+            converter.error_manager.batch_mode = True
 
         success = converter.convert()
         if success and converter.target_file.exists():

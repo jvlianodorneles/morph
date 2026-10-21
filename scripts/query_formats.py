@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """Query compatible conversion target formats for a file using SimplyConvertFile."""
 
 import sys
