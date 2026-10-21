@@ -5,6 +5,7 @@ repo=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
 token=${1:-"$(date +%s)"}
 config_dir=${XDG_CONFIG_HOME:-$HOME/.config}/omarchy
 config="$config_dir/convert-orb.json"
+summon_script="$repo/scripts/summon_orb"
 
 mkdir -p "$config_dir"
 if [[ ! -f $config ]]; then
@@ -13,10 +14,16 @@ fi
 
 shortcut=$(jq -r '.shortcut // "SUPER + ALT + C"' "$config" 2>/dev/null || echo "SUPER + ALT + C")
 
-code="local ok, bind = pcall(function()
+code="local r = rawget(_G, '__convert_orb_bindings')
+if not r then r = {}; _G.__convert_orb_bindings = r end
+for _, bind in ipairs(r) do pcall(function() bind:remove() end) end
+r = {}
+local ok, b = pcall(function()
   return hl.bind(\"$shortcut\", function()
-    hl.exec_cmd('omarchy-shell shell summon dorneles.convert-orb \"{}\"')
+    hl.exec_cmd(\"$summon_script\")
   end, { description = 'Convert Orb [$token]' })
-end)"
+end)
+if ok and b then table.insert(r, b) end
+_G.__convert_orb_bindings = r"
 
 hyprctl eval "$code" >/dev/null 2>&1 || true

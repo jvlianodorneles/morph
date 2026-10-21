@@ -91,12 +91,24 @@ Item {
             if (payload.files && Array.isArray(payload.files) && payload.files.length > 0) {
                 settingsOpen = false;
                 overlayActive = true;
+                cursorPos.running = false;
                 cursorPos.running = true;
                 requestFormats(payload.files);
+                Qt.callLater(function() { keyHandler.forceActiveFocus(); });
+                return;
+            }
+            if (payload.openPicker) {
+                pickerProc.running = false;
+                pickerProc.running = true;
                 return;
             }
         } catch (e) {}
         openSettings();
+    }
+
+    function selectNext(delta) {
+        if (!selectionCount) return;
+        selected = selected < 0 ? (delta > 0 ? 0 : selectionCount - 1) : (selected + delta + selectionCount) % selectionCount;
     }
 
     function openSettings() {
@@ -293,7 +305,7 @@ Item {
                         root.availableFormats = info.available_formats;
                         root.defaultFormat = info.default_format;
                         root.formatPage = 0;
-                        root.selected = -1;
+                        root.selected = 0;
                         root.wheelOpened = true;
                         cursorPos.running = false;
                         cursorPos.running = true;
@@ -327,6 +339,27 @@ Item {
         }
     }
 
+    // Picker process using flea --picker
+    Process {
+        id: pickerProc
+        command: ["flea", "--picker"]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                var p = text.trim();
+                if (p.length > 0) {
+                    root.settingsOpen = false;
+                    root.overlayActive = true;
+                    root.cursorPos.running = false;
+                    root.cursorPos.running = true;
+                    root.requestFormats([p]);
+                    Qt.callLater(function() { keyHandler.forceActiveFocus(); });
+                } else {
+                    root.dismiss();
+                }
+            }
+        }
+    }
+
     // IPC Handler
     IpcHandler {
         target: root.pluginId
@@ -354,7 +387,7 @@ Item {
     OverlayWindow {
         id: panelWindow
         shown: root.overlayActive
-        shownKeyboardFocus: root.settingsOpen ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
+        shownKeyboardFocus: root.overlayActive ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
         WlrLayershell.namespace: "omarchy-plugin-convert-orb"
         WlrLayershell.layer: WlrLayer.Overlay
         exclusionMode: ExclusionMode.Ignore
@@ -368,6 +401,41 @@ Item {
             monitorData.reserved || [0, 0, 0, 0],
             Commons.Style.space(root.config.diameter || 280)
         )
+
+        // Keyboard handler for navigation and instant conversion
+        Item {
+            id: keyHandler
+            anchors.fill: parent
+            focus: root.overlayActive && !root.settingsOpen
+            Keys.onPressed: event => {
+                if (event.key === Qt.Key_Escape) {
+                    root.dismiss();
+                } else if (event.key === Qt.Key_Right || event.key === Qt.Key_Down || (event.key === Qt.Key_Tab && !(event.modifiers & Qt.ShiftModifier))) {
+                    root.selectNext(1);
+                } else if (event.key === Qt.Key_Left || event.key === Qt.Key_Up || event.key === Qt.Key_Backtab || (event.key === Qt.Key_Tab && (event.modifiers & Qt.ShiftModifier))) {
+                    root.selectNext(-1);
+                } else if (event.key >= Qt.Key_1 && event.key <= Qt.Key_9) {
+                    var idx = event.key - Qt.Key_1;
+                    if (idx < root.selectionCount) {
+                        root.selected = idx;
+                        root.executeConversion(root.wheelSlices[idx]);
+                    }
+                } else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter || event.key === Qt.Key_Space) {
+                    if (root.selected >= 0 && root.selected < root.selectionCount) {
+                        root.executeConversion(root.wheelSlices[root.selected]);
+                    } else if (root.selectionCount > 0) {
+                        root.executeConversion(root.wheelSlices[0]);
+                    }
+                } else if (event.key === Qt.Key_PageDown) {
+                    root.turnPage(1);
+                } else if (event.key === Qt.Key_PageUp) {
+                    root.turnPage(-1);
+                } else if (event.key === Qt.Key_S || event.key === Qt.Key_Home) {
+                    root.openSettings();
+                } else return;
+                event.accepted = true;
+            }
+        }
 
         // Dismiss on clicking empty area
         MouseArea {
