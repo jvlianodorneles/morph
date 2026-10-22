@@ -20,6 +20,19 @@ Convert files instantly across 80+ supported formats without opening traditional
 
 ---
 
+## Dependencies
+
+Morph relies on the following runtime tools and libraries:
+- **Python 3** (and standard library modules)
+- [**SimplyConvertFile**](https://github.com/ThigSchuch/SimplyConvertFile) (file format conversion backend)
+- **wl-clipboard** (`wl-copy` / `wl-paste` for clipboard detection)
+- **wtype** (Wayland keystroke emulation to retrieve selected files from active file managers)
+- **jq** (used by setup scripts for reading settings)
+- **libnotify** (`notify-send` for desktop conversion notifications)
+- **Hyprland** (`hyprctl` for dynamic keybinding evaluation and window state)
+
+---
+
 ## Usage
 
 ### 1. Instant Conversion
