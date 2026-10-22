@@ -8,8 +8,8 @@ Item {
     property bool selected: false
     property color ink: Commons.Color.menu.text
 
-    implicitWidth: 50
-    implicitHeight: 28
+    implicitWidth: 64
+    implicitHeight: 32
 
     // Category accent dot / tint
     readonly property color categoryColor: {
@@ -25,30 +25,35 @@ Item {
 
     Column {
         anchors.centerIn: parent
-        spacing: 2
+        spacing: 3
 
+        Text {
+            id: labelText
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: root.formatName
+            color: root.selected ? Commons.Color.menu.selectedText || "#ffffff" : root.ink
+            font.family: Commons.Style.font.menuFamily
+            font.pixelSize: Commons.Style.space(12)
+            font.weight: root.selected ? Font.Bold : Font.DemiBold
+            textFormat: Text.PlainText
+            elide: Text.ElideNone
+
+            scale: root.selected ? 1.08 : 1.0
+            Behavior on scale { NumberAnimation { duration: 100 } }
+            Behavior on color { ColorAnimation { duration: 100 } }
+        }
+
+        // Elegant category indicator dot
         Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
-            width: Math.min(parent.parent.width, badgeText.implicitWidth + 12)
-            height: Math.round(badgeText.implicitHeight + 4)
-            radius: height / 2
-            color: root.selected ? Commons.Color.accent : Commons.Util.alpha(root.categoryColor, 0.15)
-            border.width: 1
-            border.color: root.selected ? "#ffffff" : Commons.Util.alpha(root.categoryColor, 0.4)
+            width: root.selected ? 8 : 4
+            height: 3
+            radius: 1.5
+            color: root.selected ? (Commons.Color.menu.selectedText || "#ffffff") : root.categoryColor
+            opacity: root.selected ? 0.9 : 0.65
 
-            Behavior on color { ColorAnimation { duration: 120 } }
-            Behavior on border.color { ColorAnimation { duration: 120 } }
-
-            Text {
-                id: badgeText
-                anchors.centerIn: parent
-                text: root.formatName
-                color: root.selected ? "#ffffff" : root.ink
-                font.family: Commons.Style.font.menuFamily
-                font.pixelSize: Commons.Style.space(11)
-                font.weight: Font.Bold
-                textFormat: Text.PlainText
-            }
+            Behavior on width { NumberAnimation { duration: 120 } }
+            Behavior on color { ColorAnimation { duration: 100 } }
         }
     }
 }
