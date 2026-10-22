@@ -795,9 +795,9 @@ Item {
                             }
                             if (root.selected === -2) return "Morph Settings";
                             if (root.draggedFiles.length > 1) {
-                                return "Drop " + root.draggedFiles.length + " files on any format";
+                                return "Convert " + root.draggedFiles.length + " files";
                             }
-                            return root.sourceFilename ? ("Drop " + root.sourceFilename + " on format") : "Drop on any format";
+                            return root.sourceFilename ? ("Convert " + root.sourceFilename) : "Select a target format";
                         }
                         font.family: Commons.Style.font.menuFamily
                         font.pixelSize: Commons.Style.space(11) * wheel.captionScale
