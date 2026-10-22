@@ -115,7 +115,7 @@ Item {
     }
 
     function openSettings() {
-        cursorPos.running = true;
+        if (!wheelOpened) cursorPos.running = true;
         settingsCard.begin(root.config);
         settingsOpen = true;
         overlayActive = true;
@@ -645,6 +645,7 @@ Item {
 
             // Center Hub (Source info / Settings opener)
             Rectangle {
+                id: hubRect
                 z: 2
                 anchors.centerIn: parent
                 width: parent.width * 0.32
@@ -698,16 +699,16 @@ Item {
                     onPressed: mouse => {
                         isDragging = false;
                         draggedFarEnough = false;
-                        var g = mapToItem(panelWindow, mouse.x, mouse.y);
-                        startGlobalPos = Qt.point(g.x, g.y);
+                        startGlobalPos = Qt.point(wheel.x + hubRect.x + mouse.x, wheel.y + hubRect.y + mouse.y);
                         initialOffset = Qt.point(root.dragOffset.x, root.dragOffset.y);
                     }
 
                     onPositionChanged: mouse => {
                         if (pressed) {
-                            var g = mapToItem(panelWindow, mouse.x, mouse.y);
-                            var dx = g.x - startGlobalPos.x;
-                            var dy = g.y - startGlobalPos.y;
+                            var curX = wheel.x + hubRect.x + mouse.x;
+                            var curY = wheel.y + hubRect.y + mouse.y;
+                            var dx = curX - startGlobalPos.x;
+                            var dy = curY - startGlobalPos.y;
                             if (Math.abs(dx) > 6 || Math.abs(dy) > 6) {
                                 isDragging = true;
                                 draggedFarEnough = true;
