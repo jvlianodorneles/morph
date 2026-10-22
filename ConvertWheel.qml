@@ -739,19 +739,21 @@ Item {
 
             // Footer hint card
             Rectangle {
+                id: footerCard
                 anchors.top: parent.bottom
                 anchors.topMargin: 10 * wheel.captionScale
                 anchors.horizontalCenter: parent.horizontalCenter
-                width: Math.min(panelWindow.width - 40, hintText.implicitWidth + (root.totalPages > 1 ? 72 : 28) * wheel.captionScale)
-                height: 30 * wheel.captionScale
+                width: Math.min(panelWindow.width - 40, footerRow.implicitWidth + 28 * wheel.captionScale)
+                height: 32 * wheel.captionScale
                 radius: height / 2
                 color: Commons.Color.menu.background
                 border.width: 1
-                border.color: Commons.Util.alpha(Commons.Color.menu.text, 0.18)
+                border.color: Commons.Util.alpha(Commons.Color.menu.text, 0.22)
 
                 Row {
+                    id: footerRow
                     anchors.centerIn: parent
-                    spacing: 6
+                    spacing: 8 * wheel.captionScale
 
                     Text {
                         id: hintText
@@ -771,17 +773,30 @@ Item {
                         font.pixelSize: Commons.Style.space(11) * wheel.captionScale
                         font.weight: Font.DemiBold
                         color: Commons.Color.menu.text
-                        elide: Text.ElideRight
+                        elide: Text.ElideMiddle
+                        maximumLineCount: 1
                     }
 
-                    // Page indicator if multiple pages
-                    Text {
+                    // Page indicator badge if multiple pages
+                    Rectangle {
                         visible: root.totalPages > 1
                         anchors.verticalCenter: parent.verticalCenter
-                        text: "· Pág " + (root.formatPage + 1) + "/" + root.totalPages + " (Scroll ↕ / PgUp / PgDn)"
-                        font.family: Commons.Style.font.menuFamily
-                        font.pixelSize: Commons.Style.space(9) * wheel.captionScale
-                        color: Commons.Util.alpha(Commons.Color.menu.text, 0.65)
+                        height: 20 * wheel.captionScale
+                        width: pageLabel.implicitWidth + 14 * wheel.captionScale
+                        radius: height / 2
+                        color: Commons.Util.alpha(Commons.Color.accent, 0.16)
+                        border.width: 1
+                        border.color: Commons.Util.alpha(Commons.Color.accent, 0.45)
+
+                        Text {
+                            id: pageLabel
+                            anchors.centerIn: parent
+                            text: "Pág " + (root.formatPage + 1) + "/" + root.totalPages + " · Scroll ↕"
+                            font.family: Commons.Style.font.menuFamily
+                            font.pixelSize: Commons.Style.space(10) * wheel.captionScale
+                            font.weight: Font.Medium
+                            color: Commons.Color.accent
+                        }
                     }
                 }
             }
