@@ -33,6 +33,49 @@ Morph relies on the following runtime tools and libraries:
 
 ---
 
+## Installation
+
+### 1. Prerequisites
+
+Install system dependencies via `pacman`:
+
+```bash
+sudo pacman -S --needed python wl-clipboard wtype jq libnotify
+```
+
+Install the conversion backend [**SimplyConvertFile**](https://github.com/ThigSchuch/SimplyConvertFile):
+
+```bash
+git clone https://github.com/ThigSchuch/SimplyConvertFile.git
+cd SimplyConvertFile
+pip install .
+```
+
+### 2. Install Plugin
+
+#### Option 1: Via Omarchy CLI (Recommended)
+
+```bash
+omarchy plugin add https://github.com/jvlianodorneles/morph.git --enable
+```
+
+#### Option 2: Manual Installation
+
+```bash
+git clone https://github.com/jvlianodorneles/morph.git ~/.config/omarchy/plugins/dorneles.convert-orb
+omarchy plugin enable dorneles.convert-orb
+```
+
+### 3. Update
+
+To update the plugin to the latest version:
+
+```bash
+omarchy plugin update dorneles.convert-orb
+```
+
+---
+
 ## Usage
 
 ### 1. Instant Conversion
@@ -71,6 +114,33 @@ Settings are saved in `~/.config/omarchy/convert-orb.json`:
     "archive": ["ZIP", "TAR.GZ", "TAR.XZ", "7Z"]
   }
 }
+```
+
+---
+
+## Uninstallation
+
+To remove Morph from your system:
+
+### Via Omarchy CLI
+
+```bash
+omarchy plugin remove dorneles.convert-orb
+```
+
+### Manual Removal
+
+```bash
+omarchy plugin disable dorneles.convert-orb
+rm -rf ~/.config/omarchy/plugins/dorneles.convert-orb
+```
+
+### Clean Configuration *(Optional)*
+
+To delete saved preferences and user configuration:
+
+```bash
+rm -f ~/.config/omarchy/convert-orb.json
 ```
 
 ---
