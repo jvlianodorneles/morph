@@ -691,11 +691,13 @@ Item {
                     acceptedButtons: Qt.LeftButton
 
                     property bool isDragging: false
+                    property bool draggedFarEnough: false
                     property point startGlobalPos: Qt.point(0, 0)
                     property point initialOffset: Qt.point(0, 0)
 
                     onPressed: mouse => {
                         isDragging = false;
+                        draggedFarEnough = false;
                         var g = mapToItem(panelWindow, mouse.x, mouse.y);
                         startGlobalPos = Qt.point(g.x, g.y);
                         initialOffset = Qt.point(root.dragOffset.x, root.dragOffset.y);
@@ -706,8 +708,9 @@ Item {
                             var g = mapToItem(panelWindow, mouse.x, mouse.y);
                             var dx = g.x - startGlobalPos.x;
                             var dy = g.y - startGlobalPos.y;
-                            if (!isDragging && (Math.abs(dx) > 4 || Math.abs(dy) > 4)) {
+                            if (Math.abs(dx) > 6 || Math.abs(dy) > 6) {
                                 isDragging = true;
+                                draggedFarEnough = true;
                             }
                             if (isDragging) {
                                 root.dragOffset = Qt.point(initialOffset.x + dx, initialOffset.y + dy);
@@ -716,10 +719,15 @@ Item {
                     }
 
                     onReleased: mouse => {
-                        if (!isDragging) {
+                        if (!draggedFarEnough && !isDragging) {
                             root.openSettings();
                         }
                         isDragging = false;
+                        draggedFarEnough = false;
+                    }
+                    onCanceled: {
+                        isDragging = false;
+                        draggedFarEnough = false;
                     }
                 }
             }
@@ -780,9 +788,7 @@ Item {
                     var s = Model.hit(mouse.x, mouse.y, width, root.selectionCount);
                     if (s >= 0 && s < root.selectionCount) {
                         root.executeConversion(root.wheelSlices[s]);
-                    } else if (s === -2) {
-                        root.openSettings();
-                    } else {
+                    } else if (s === -1) {
                         root.dismiss();
                     }
                 }
