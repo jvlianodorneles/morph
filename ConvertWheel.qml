@@ -43,6 +43,7 @@ Item {
     property bool wheelOpened: false
     property bool settingsOpen: false
     property point pointer: Qt.point(0, 0)
+    property point dragOffset: Qt.point(0, 0)
     property bool positioned: false
 
     // Dragged item information
@@ -133,6 +134,7 @@ Item {
         selected = -1;
         wheelScrollAccumulator = 0;
         lastPageTurnTime = 0;
+        dragOffset = Qt.point(0, 0);
         draggedFiles = [];
         availableFormats = [];
         sourceFormat = "";
@@ -398,8 +400,8 @@ Item {
 
         readonly property var monitorData: targetMonitor ? targetMonitor.lastIpcObject : ({})
         readonly property var placement: Model.placement(
-            root.pointer.x - (monitorData.x || 0),
-            root.pointer.y - (monitorData.y || 0),
+            root.pointer.x + root.dragOffset.x - (monitorData.x || 0),
+            root.pointer.y + root.dragOffset.y - (monitorData.y || 0),
             width,
             height,
             monitorData.reserved || [0, 0, 0, 0],
@@ -681,10 +683,39 @@ Item {
                 }
 
                 MouseArea {
+                    id: hubMouseArea
                     anchors.fill: parent
                     hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: root.openSettings()
+                    cursorShape: isDragging ? Qt.ClosedHandCursor : Qt.PointingHandCursor
+                    acceptedButtons: Qt.LeftButton
+
+                    property bool isDragging: false
+                    property point startPos: Qt.point(0, 0)
+
+                    onPressed: mouse => {
+                        isDragging = false;
+                        startPos = Qt.point(mouse.x, mouse.y);
+                    }
+
+                    onPositionChanged: mouse => {
+                        if (pressed) {
+                            var dx = mouse.x - startPos.x;
+                            var dy = mouse.y - startPos.y;
+                            if (!isDragging && (Math.abs(dx) > 4 || Math.abs(dy) > 4)) {
+                                isDragging = true;
+                            }
+                            if (isDragging) {
+                                root.dragOffset = Qt.point(root.dragOffset.x + dx, root.dragOffset.y + dy);
+                            }
+                        }
+                    }
+
+                    onReleased: mouse => {
+                        if (!isDragging) {
+                            root.openSettings();
+                        }
+                        isDragging = false;
+                    }
                 }
             }
 
