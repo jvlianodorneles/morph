@@ -4,7 +4,7 @@ A high-craft radial format conversion orb for **Omarchy** on Wayland / Hyprland,
 
 Convert files instantly across 80+ supported formats without opening traditional dialogs: click any file while holding <kbd>Alt</kbd> (or press <kbd>Alt</kbd> + <kbd>C</kbd>), click your desired output format on the blooming orb, and transform instantly.
 
-![Morph Preview](assets/convert-icon.svg)
+![Morph Preview](preview.png)
 
 ---
 
