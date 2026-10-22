@@ -57,6 +57,7 @@ Item {
     property int formatPage: 0
     property int selected: -1
     property int wheelScrollAccumulator: 0
+    property double lastPageTurnTime: 0
     readonly property var activeAvailableFormats: availableFormats
 
     property var formatResult: Model.prioritizeFormats(
@@ -131,6 +132,7 @@ Item {
         overlayActive = false;
         selected = -1;
         wheelScrollAccumulator = 0;
+        lastPageTurnTime = 0;
         draggedFiles = [];
         availableFormats = [];
         sourceFormat = "";
@@ -744,11 +746,20 @@ Item {
                 onWheel: event => {
                     var dy = event.angleDelta.y;
                     if (dy !== 0) {
-                        root.wheelScrollAccumulator += dy;
-                        var threshold = 120;
-                        if (Math.abs(root.wheelScrollAccumulator) >= threshold) {
-                            var delta = root.wheelScrollAccumulator < 0 ? 1 : -1;
-                            root.turnPage(delta);
+                        var now = Date.now();
+                        // Prevent page flipping faster than once every 280ms (for fast touchpad kinetic flicking)
+                        if (now - root.lastPageTurnTime >= 280) {
+                            root.wheelScrollAccumulator += dy;
+                            // Higher threshold (240 instead of 120) requires a deliberate scroll motion
+                            var threshold = 240;
+                            if (Math.abs(root.wheelScrollAccumulator) >= threshold) {
+                                var delta = root.wheelScrollAccumulator < 0 ? 1 : -1;
+                                root.turnPage(delta);
+                                root.wheelScrollAccumulator = 0;
+                                root.lastPageTurnTime = now;
+                            }
+                        } else {
+                            // Reset accumulator during cooldown to prevent buffered skips
                             root.wheelScrollAccumulator = 0;
                         }
                     }
@@ -810,7 +821,7 @@ Item {
                         Text {
                             id: pageLabel
                             anchors.centerIn: parent
-                            text: "Pág " + (root.formatPage + 1) + "/" + root.totalPages + " · Scroll ↕"
+                            text: "Page " + (root.formatPage + 1) + "/" + root.totalPages + " · Scroll ↕"
                             font.family: Commons.Style.font.menuFamily
                             font.pixelSize: Commons.Style.space(10) * wheel.captionScale
                             font.weight: Font.Medium
