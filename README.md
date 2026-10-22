@@ -48,7 +48,7 @@ Settings are saved in `~/.config/omarchy/convert-orb.json`:
   "outputDirectoryMode": "source",
   "customOutputPath": "",
   "notifications": true,
-  "dragShift": true,
+  "altLeftClick": true,
   "shortcut": "SUPER + ALT + C",
   "preferredFormats": {
     "image": ["PNG", "WEBP", "JPEG", "AVIF", "PDF", "SVG", "GIF", "BMP"],
@@ -59,6 +59,13 @@ Settings are saved in `~/.config/omarchy/convert-orb.json`:
   }
 }
 ```
+
+---
+
+## Acknowledgements
+
+- Radial wheel UI structure and geometry inspired by [**Orb** (`io.github.tcballard.orb`)](https://github.com/tcballard/omarchy-plugin-orb) by Tom Ballard.
+- Format conversion powered by [**SimplyConvertFile**](https://github.com/ThigSchuch/SimplyConvertFile).
 
 ---
 
