@@ -645,6 +645,7 @@ Item {
 
             // Center Hub (Source info / Settings opener)
             Rectangle {
+                z: 2
                 anchors.centerIn: parent
                 width: parent.width * 0.32
                 height: width
@@ -690,22 +691,26 @@ Item {
                     acceptedButtons: Qt.LeftButton
 
                     property bool isDragging: false
-                    property point startPos: Qt.point(0, 0)
+                    property point startGlobalPos: Qt.point(0, 0)
+                    property point initialOffset: Qt.point(0, 0)
 
                     onPressed: mouse => {
                         isDragging = false;
-                        startPos = Qt.point(mouse.x, mouse.y);
+                        var g = mapToItem(panelWindow, mouse.x, mouse.y);
+                        startGlobalPos = Qt.point(g.x, g.y);
+                        initialOffset = Qt.point(root.dragOffset.x, root.dragOffset.y);
                     }
 
                     onPositionChanged: mouse => {
                         if (pressed) {
-                            var dx = mouse.x - startPos.x;
-                            var dy = mouse.y - startPos.y;
+                            var g = mapToItem(panelWindow, mouse.x, mouse.y);
+                            var dx = g.x - startGlobalPos.x;
+                            var dy = g.y - startGlobalPos.y;
                             if (!isDragging && (Math.abs(dx) > 4 || Math.abs(dy) > 4)) {
                                 isDragging = true;
                             }
                             if (isDragging) {
-                                root.dragOffset = Qt.point(root.dragOffset.x + dx, root.dragOffset.y + dy);
+                                root.dragOffset = Qt.point(initialOffset.x + dx, initialOffset.y + dy);
                             }
                         }
                     }
@@ -760,8 +765,15 @@ Item {
                 anchors.fill: parent
                 hoverEnabled: true
                 acceptedButtons: Qt.LeftButton
+                preventStealing: false
                 onPositionChanged: mouse => {
-                    root.selected = Model.hit(mouse.x, mouse.y, width, root.selectionCount);
+                    var s = Model.hit(mouse.x, mouse.y, width, root.selectionCount);
+                    // Don't override selected if hovering over the center hub (-2)
+                    if (s !== -2) {
+                        root.selected = s;
+                    } else {
+                        root.selected = -2;
+                    }
                 }
                 onExited: root.selected = -1
                 onClicked: mouse => {
