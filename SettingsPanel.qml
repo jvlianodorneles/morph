@@ -13,7 +13,7 @@ FocusScope {
     property string customOutputPath: ""
     property bool notifications: true
     property bool altLeftClick: true
-    property string shortcut: "SUPER + ALT + C"
+    property string shortcut: "ALT + C"
     property var preferredFormats: ({})
 
     property int tab: 0
@@ -37,7 +37,7 @@ FocusScope {
         customOutputPath = cfg.customOutputPath || "";
         notifications = cfg.notifications !== false;
         altLeftClick = cfg.altLeftClick !== false;
-        shortcut = cfg.shortcut || "SUPER + ALT + C";
+        shortcut = cfg.shortcut || "ALT + C";
         preferredFormats = JSON.parse(JSON.stringify(cfg.preferredFormats || {}));
         tab = 0;
         currentCategory = "image";

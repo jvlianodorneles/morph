@@ -2,7 +2,7 @@
 
 A high-craft radial format conversion orb for **Omarchy** on Wayland / Hyprland, powered by [**SimplyConvertFile**](https://github.com/ThigSchuch/SimplyConvertFile).
 
-Convert files instantly across 80+ supported formats without opening traditional dialogs: click any file while holding <kbd>Alt</kbd> (or press <kbd>Super</kbd> + <kbd>Alt</kbd> + <kbd>C</kbd>), click your desired output format on the blooming orb, and transform instantly.
+Convert files instantly across 80+ supported formats without opening traditional dialogs: click any file while holding <kbd>Alt</kbd> (or press <kbd>Alt</kbd> + <kbd>C</kbd>), click your desired output format on the blooming orb, and transform instantly.
 
 ![Morph Preview](assets/convert-icon.svg)
 
@@ -24,13 +24,13 @@ Convert files instantly across 80+ supported formats without opening traditional
 
 ### 1. Instant Conversion
 1. In your favorite file manager (or desktop), select a file.
-2. Hold down the <kbd>Alt</kbd> key and click the file (or press <kbd>Super</kbd> + <kbd>Alt</kbd> + <kbd>C</kbd>).
+2. Hold down the <kbd>Alt</kbd> key and click the file (or press <kbd>Alt</kbd> + <kbd>C</kbd>).
 3. Morph blooms around your pointer with slices for all compatible target formats.
 4. Move your cursor onto the target format (e.g. `WEBP`, `PNG`, `MP3`, `PDF`) and click.
 5. Morph converts the file in the background and sends a desktop notification when complete.
 
 ### 2. Settings Panel
-- Press <kbd>Super</kbd> + <kbd>Alt</kbd> + <kbd>C</kbd> or click the center hub of the wheel to open settings.
+- Press <kbd>Alt</kbd> + <kbd>C</kbd> or click the center hub of the wheel to open settings.
 - Rearrange preferred formats per category (Images, Video, Audio, Documents, Archives).
 - Toggle Alt + Click trigger, change diameter, or choose a custom output destination folder.
 
@@ -49,7 +49,7 @@ Settings are saved in `~/.config/omarchy/convert-orb.json`:
   "customOutputPath": "",
   "notifications": true,
   "altLeftClick": true,
-  "shortcut": "SUPER + ALT + C",
+  "shortcut": "ALT + C",
   "preferredFormats": {
     "image": ["PNG", "WEBP", "JPEG", "AVIF", "PDF", "SVG", "GIF", "BMP"],
     "video": ["MP4", "WEBM", "MKV", "MP3", "GIF", "MOV", "AVI"],

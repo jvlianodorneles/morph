@@ -12,7 +12,7 @@ if [[ ! -f $config ]]; then
   cp "$repo/config.example.json" "$config"
 fi
 
-shortcut=$(jq -r '.shortcut // "SUPER + ALT + C"' "$config" 2>/dev/null || echo "SUPER + ALT + C")
+shortcut=$(jq -r '.shortcut // "ALT + C"' "$config" 2>/dev/null || echo "ALT + C")
 
 code="local r = rawget(_G, '__convert_orb_bindings')
 if not r then r = {}; _G.__convert_orb_bindings = r end

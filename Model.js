@@ -106,7 +106,7 @@ function parse(raw, fallback) {
         var customOutputPath = String(val.customOutputPath || "");
         var notifications = val.notifications !== false;
         var altLeftClick = val.altLeftClick !== false;
-        var shortcut = String(val.shortcut || "SUPER + ALT + C");
+        var shortcut = String(val.shortcut || "ALT + C");
         var preferredFormats = val.preferredFormats || (fallback && fallback.preferredFormats) || {};
 
         return {

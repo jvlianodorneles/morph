@@ -28,7 +28,7 @@ Item {
         customOutputPath: "",
         notifications: true,
         altLeftClick: true,
-        shortcut: "SUPER + ALT + C",
+        shortcut: "ALT + C",
         preferredFormats: {
             image: ["PNG", "WEBP", "JPEG", "AVIF", "PDF", "SVG", "GIF", "BMP"],
             video: ["MP4", "WEBM", "MKV", "MP3", "GIF", "MOV", "AVI"],
