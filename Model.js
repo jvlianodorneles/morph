@@ -105,7 +105,7 @@ function parse(raw, fallback) {
         var outputDirectoryMode = val.outputDirectoryMode === "custom" ? "custom" : "source";
         var customOutputPath = String(val.customOutputPath || "");
         var notifications = val.notifications !== false;
-        var dragShift = val.dragShift !== false;
+        var altLeftClick = val.altLeftClick !== false;
         var shortcut = String(val.shortcut || "SUPER + ALT + C");
         var preferredFormats = val.preferredFormats || (fallback && fallback.preferredFormats) || {};
 
@@ -117,7 +117,7 @@ function parse(raw, fallback) {
                 outputDirectoryMode: outputDirectoryMode,
                 customOutputPath: customOutputPath,
                 notifications: notifications,
-                dragShift: dragShift,
+                altLeftClick: altLeftClick,
                 shortcut: shortcut,
                 preferredFormats: preferredFormats
             },
@@ -136,7 +136,7 @@ function mergeSettings(currentDoc, draft) {
     if (draft.outputDirectoryMode !== undefined) result.outputDirectoryMode = draft.outputDirectoryMode;
     if (draft.customOutputPath !== undefined) result.customOutputPath = draft.customOutputPath;
     if (draft.notifications !== undefined) result.notifications = draft.notifications;
-    if (draft.dragShift !== undefined) result.dragShift = draft.dragShift;
+    if (draft.altLeftClick !== undefined) result.altLeftClick = draft.altLeftClick;
     if (draft.shortcut !== undefined) result.shortcut = draft.shortcut;
     if (draft.preferredFormats !== undefined) result.preferredFormats = draft.preferredFormats;
     return result;

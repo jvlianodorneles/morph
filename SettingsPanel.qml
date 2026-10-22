@@ -12,7 +12,7 @@ FocusScope {
     property string outputDirectoryMode: "source"
     property string customOutputPath: ""
     property bool notifications: true
-    property bool dragShift: true
+    property bool altLeftClick: true
     property string shortcut: "SUPER + ALT + C"
     property var preferredFormats: ({})
 
@@ -36,7 +36,7 @@ FocusScope {
         outputDirectoryMode = cfg.outputDirectoryMode || "source";
         customOutputPath = cfg.customOutputPath || "";
         notifications = cfg.notifications !== false;
-        dragShift = cfg.dragShift !== false;
+        altLeftClick = cfg.altLeftClick !== false;
         shortcut = cfg.shortcut || "SUPER + ALT + C";
         preferredFormats = JSON.parse(JSON.stringify(cfg.preferredFormats || {}));
         tab = 0;
@@ -52,7 +52,7 @@ FocusScope {
             outputDirectoryMode: outputDirectoryMode,
             customOutputPath: customOutputPath,
             notifications: notifications,
-            dragShift: dragShift,
+            altLeftClick: altLeftClick,
             shortcut: shortcut,
             preferredFormats: preferredFormats
         };
@@ -85,7 +85,7 @@ FocusScope {
         color: Commons.Color.menu.text
         font.family: Commons.Style.font.menuFamily
         font.pixelSize: Commons.Style.space(12)
-        elide: Text.ElideRight
+        wrapMode: Text.Wrap
     }
 
     // Background card
@@ -112,7 +112,7 @@ FocusScope {
                 width: parent.width - closeBtn.width - parent.spacing
                 spacing: 2
                 Label {
-                    text: "Convert Orb"
+                    text: "Morph"
                     font.pixelSize: Commons.Style.space(18)
                     font.weight: Font.DemiBold
                 }
@@ -281,28 +281,30 @@ FocusScope {
             width: parent.width
             spacing: Commons.Style.space(12)
 
-            // Trigger dragShift
+            // Trigger Alt + Left-Click
             Row {
                 width: parent.width
                 spacing: Commons.Style.space(10)
 
                 Column {
-                    width: parent.width - shiftToggle.width - parent.spacing
+                    width: parent.width - altLeftToggle.implicitWidth - parent.spacing
                     spacing: 2
-                    Label { text: "Drag + Shift trigger"; font.weight: Font.DemiBold }
+                    Label { width: parent.width; text: "Alt + Left-Click trigger"; font.weight: Font.DemiBold }
                     Label {
-                        text: "Show wheel when dragging any file while holding Shift"
+                        width: parent.width
+                        text: "Hold Alt and click left mouse button on a file to summon orb"
                         font.pixelSize: Commons.Style.space(10)
                         color: Commons.Util.alpha(Commons.Color.menu.text, 0.6)
                     }
                 }
                 Button {
-                    id: shiftToggle
-                    text: panel.dragShift ? "Enabled" : "Disabled"
-                    selected: panel.dragShift
+                    id: altLeftToggle
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: panel.altLeftClick ? "Enabled" : "Disabled"
+                    selected: panel.altLeftClick
                     bordered: true
                     foreground: Commons.Color.menu.text
-                    onClicked: panel.dragShift = !panel.dragShift
+                    onClicked: panel.altLeftClick = !panel.altLeftClick
                 }
             }
 
@@ -368,10 +370,11 @@ FocusScope {
                 width: parent.width
                 spacing: Commons.Style.space(10)
                 Column {
-                    width: parent.width - notifToggle.width - parent.spacing
+                    width: parent.width - notifToggle.implicitWidth - parent.spacing
                     spacing: 2
-                    Label { text: "Desktop notifications"; font.weight: Font.DemiBold }
+                    Label { width: parent.width; text: "Desktop notifications"; font.weight: Font.DemiBold }
                     Label {
+                        width: parent.width
                         text: "Display system notification when conversion completes"
                         font.pixelSize: Commons.Style.space(10)
                         color: Commons.Util.alpha(Commons.Color.menu.text, 0.6)
@@ -379,6 +382,7 @@ FocusScope {
                 }
                 Button {
                     id: notifToggle
+                    anchors.verticalCenter: parent.verticalCenter
                     text: panel.notifications ? "On" : "Off"
                     selected: panel.notifications
                     bordered: true

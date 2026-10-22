@@ -5,7 +5,7 @@
   "outputDirectoryMode": "source",
   "customOutputPath": "",
   "notifications": true,
-  "dragShift": true,
+  "altLeftClick": true,
   "shortcut": "SUPER + ALT + C",
   "preferredFormats": {
     "image": ["PNG", "WEBP", "JPEG", "AVIF", "PDF", "SVG", "GIF", "BMP"],

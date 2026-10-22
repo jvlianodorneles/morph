@@ -45,7 +45,7 @@ except Exception as e:
 def send_notification(summary: str, body: str, urgency: str = "normal", icon: str = "document-send"):
     try:
         subprocess.run(
-            ["notify-send", "-a", "Convert Orb", "-u", urgency, "-i", icon, summary, body],
+            ["notify-send", "-a", "Morph", "-u", urgency, "-i", icon, summary, body],
             check=False,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL

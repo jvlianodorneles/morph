@@ -75,6 +75,43 @@ def read_clipboard_uris():
     return []
 
 
+def wait_for_modifiers_released(timeout=1.5):
+    """Block until no Super/Alt/Ctrl/Shift key is physically held (best effort, via evdev)."""
+    import fcntl
+    import glob
+
+    modifier_codes = (29, 97, 42, 54, 56, 100, 125, 126)  # ctrl, shift, alt, meta (left/right)
+    eviocgkey = (2 << 30) | (96 << 16) | (ord("E") << 8) | 0x18
+    fds = []
+    for path in glob.glob("/dev/input/event*"):
+        try:
+            fds.append(os.open(path, os.O_RDONLY | os.O_NONBLOCK))
+        except OSError:
+            pass
+    if not fds:
+        time.sleep(0.3)
+        return
+    try:
+        deadline = time.monotonic() + timeout
+        while time.monotonic() < deadline:
+            held = False
+            for fd in fds:
+                try:
+                    buf = bytearray(96)
+                    fcntl.ioctl(fd, eviocgkey, buf)
+                except OSError:
+                    continue
+                if any(buf[c // 8] & (1 << (c % 8)) for c in modifier_codes):
+                    held = True
+                    break
+            if not held:
+                return
+            time.sleep(0.03)
+    finally:
+        for fd in fds:
+            os.close(fd)
+
+
 def detect_selected_files():
     cls, init_cls = get_active_window_class()
 
@@ -85,19 +122,26 @@ def detect_selected_files():
             return files
 
     # 2. Try copying current selection from active window (Nautilus, Dolphin, Thunar, etc.)
+    # The shortcut fires while Super/Alt may still be physically held, which would turn
+    # the synthetic Ctrl+C into Super+Alt+Ctrl+C. Wait for the modifiers to be released.
+    wait_for_modifiers_released()
     # First clear the clipboard so we don't accidentally pick up an old stale file
     try:
         subprocess.run(["wl-copy", "--clear"], check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         time.sleep(0.05)
-        subprocess.run(["wtype", "-M", "ctrl", "-s", "40", "-k", "c", "-s", "40", "-m", "ctrl"], check=False, timeout=0.35)
-        time.sleep(0.15)
+        subprocess.run(["wtype", "-M", "ctrl", "-s", "40", "-k", "c", "-s", "40", "-m", "ctrl"], check=False, timeout=0.5)
     except Exception:
         pass
 
-    # Check if a newly selected file was copied into clipboard
-    files = read_clipboard_uris()
-    if files:
-        return files
+    # Check if a newly selected file was copied into clipboard (the app may take a moment)
+    deadline = time.monotonic() + 0.8
+    while True:
+        time.sleep(0.08)
+        files = read_clipboard_uris()
+        if files:
+            return files
+        if time.monotonic() > deadline:
+            break
 
     # 3. Fallback: check plain text in clipboard in case user copied a filepath
     try:
@@ -119,7 +163,14 @@ def main():
     if files:
         payload = json.dumps({"files": files})
     else:
-        payload = json.dumps({"openPicker": True})
+        # `flea --picker` is not a file picker (it toggles Flea as the portal FileChooser
+        # and prints a status message), so tell the user instead of opening a broken flow.
+        subprocess.run(
+            ["notify-send", "-a", "Morph", "Morph",
+             "Nenhum arquivo selecionado. Selecione um arquivo no gerenciador e tente novamente."],
+            check=False,
+        )
+        return
 
     subprocess.run(["omarchy-shell", "shell", "summon", "dorneles.convert-orb", payload], check=False)
 

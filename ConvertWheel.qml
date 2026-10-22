@@ -27,7 +27,7 @@ Item {
         outputDirectoryMode: "source",
         customOutputPath: "",
         notifications: true,
-        dragShift: true,
+        altLeftClick: true,
         shortcut: "SUPER + ALT + C",
         preferredFormats: {
             image: ["PNG", "WEBP", "JPEG", "AVIF", "PDF", "SVG", "GIF", "BMP"],
@@ -56,6 +56,7 @@ Item {
     // Wheel paging & selection
     property int formatPage: 0
     property int selected: -1
+    property int wheelScrollAccumulator: 0
     readonly property var activeAvailableFormats: availableFormats
 
     property var formatResult: Model.prioritizeFormats(
@@ -129,6 +130,7 @@ Item {
         settingsOpen = false;
         overlayActive = false;
         selected = -1;
+        wheelScrollAccumulator = 0;
         draggedFiles = [];
         availableFormats = [];
         sourceFormat = "";
@@ -242,7 +244,9 @@ Item {
         }
     }
 
-    // Background drag + shift detector
+    readonly property bool listenerEnabled: root.config.altLeftClick !== false
+
+    // Background input detector (Alt + Left-Click)
     Timer {
         id: dismissTimer
         interval: 350
@@ -255,7 +259,7 @@ Item {
         id: restartListenerTimer
         interval: 1000
         onTriggered: {
-            if (root.config.dragShift !== false && !dragListener.running) {
+            if (root.listenerEnabled && !dragListener.running) {
                 dragListener.running = true;
             }
         }
@@ -267,21 +271,14 @@ Item {
             "/usr/bin/python3",
             decodeURIComponent(Qt.resolvedUrl("scripts/drag_listener.py").toString().replace(/^file:\/\//, ""))
         ]
-        running: root.config.dragShift !== false
+        running: root.listenerEnabled
         stdout: SplitParser {
             splitMarker: "\n"
             onRead: data => {
                 try {
                     var msg = JSON.parse(data.trim());
-                    if (msg.drag_shift === true) {
-                        dismissTimer.stop();
-                        cursorPos.running = false;
-                        cursorPos.running = true;
-                        root.overlayActive = true;
-                    } else if (msg.drag_shift === false) {
-                        if (!root.settingsOpen && !root.converting) {
-                            dismissTimer.restart();
-                        }
+                    if (msg.action === "summon") {
+                        root.summon(JSON.stringify(msg.payload || {}));
                     }
                 } catch (e) {}
             }
@@ -349,7 +346,7 @@ Item {
         stdout: StdioCollector {
             onStreamFinished: {
                 var p = text.trim();
-                if (p.length > 0) {
+                if (p.length > 0 && p.charAt(0) === "/" && p.indexOf("\n") < 0) {
                     root.settingsOpen = false;
                     root.availableFormats = [];
                     root.wheelOpened = false;
@@ -516,7 +513,7 @@ Item {
             running: root.overlayActive && !root.wheelOpened && !root.settingsOpen
             onTriggered: {
                 if (root.overlayActive && !root.wheelOpened) {
-                    console.warn("Convert Orb query timed out");
+                    console.warn("Morph query timed out");
                     root.dismiss();
                 }
             }
@@ -745,7 +742,16 @@ Item {
                     }
                 }
                 onWheel: event => {
-                    root.turnPage(event.angleDelta.y < 0 ? 1 : -1);
+                    var dy = event.angleDelta.y;
+                    if (dy !== 0) {
+                        root.wheelScrollAccumulator += dy;
+                        var threshold = 120;
+                        if (Math.abs(root.wheelScrollAccumulator) >= threshold) {
+                            var delta = root.wheelScrollAccumulator < 0 ? 1 : -1;
+                            root.turnPage(delta);
+                            root.wheelScrollAccumulator = 0;
+                        }
+                    }
                     event.accepted = true;
                 }
             }
@@ -776,7 +782,7 @@ Item {
                             if (root.selected >= 0 && root.selected < root.selectionCount) {
                                 return "Convert to " + root.wheelSlices[root.selected];
                             }
-                            if (root.selected === -2) return "Convert Orb Settings";
+                            if (root.selected === -2) return "Morph Settings";
                             if (root.draggedFiles.length > 1) {
                                 return "Drop " + root.draggedFiles.length + " files on any format";
                             }

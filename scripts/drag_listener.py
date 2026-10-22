@@ -1,39 +1,58 @@
 #!/usr/bin/env python3
-"""Global drag-and-drop listener for Convert Orb.
+"""Global mouse & key listener for Convert Orb.
 
-Monitors pointer buttons (BTN_LEFT) and keyboard modifiers (KEY_LEFTSHIFT / KEY_RIGHTSHIFT)
-via Linux evdev (/dev/input/event*). When both Left Mouse Button and Shift are held,
-emits {"drag_shift": true} on stdout. When either is released, emits {"drag_shift": false}.
+Monitors input events via Linux evdev (/dev/input/event*):
+Triggers Convert Orb when Left Mouse Button (BTN_LEFT) is clicked
+while the ALT key (KEY_LEFTALT / KEY_RIGHTALT) is held down.
 """
 
 import fcntl
 import glob
+import importlib.machinery
+import importlib.util
 import json
 import os
 import select
 import signal
 import struct
+import subprocess
 import sys
 import time
+from pathlib import Path
 
 EV_KEY = 0x01
 BTN_LEFT = 0x110
 BTN_TOUCH = 0x14A
-KEY_LEFTSHIFT = 42
-KEY_RIGHTSHIFT = 54
+KEY_LEFTALT = 56
+KEY_RIGHTALT = 100
 
 FMT = "llHHI"
 EVENT_SIZE = struct.calcsize(FMT)
+
+CONFIG_PATH = Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config")) / "omarchy" / "convert-orb.json"
+SUMMON_SCRIPT = Path(__file__).resolve().parent / "summon_orb"
+
+# Load summon_orb's detect_selected_files helper
+detect_selected_files = None
+try:
+    if SUMMON_SCRIPT.exists():
+        _loader = importlib.machinery.SourceFileLoader("summon_orb", str(SUMMON_SCRIPT))
+        _spec = importlib.util.spec_from_loader("summon_orb", _loader)
+        _mod = importlib.util.module_from_spec(_spec)
+        _loader.exec_module(_mod)
+        detect_selected_files = getattr(_mod, "detect_selected_files", None)
+except Exception:
+    pass
 
 
 def _ioc(direction, kind, nr, size):
     return (direction << 30) | (size << 16) | (kind << 8) | nr
 
 
-def get_device_key_bits(fd):
+def get_device_bits(fd, ev_type, size):
     try:
-        buf = bytearray(256)
-        got = fcntl.ioctl(fd, _ioc(2, ord("E"), 0x20 + EV_KEY, 256), buf)
+        buf = bytearray(size)
+        got = fcntl.ioctl(fd, _ioc(2, ord("E"), 0x20 + ev_type, size), buf)
         data = bytes(buf[:got])
         return [int.from_bytes(data[i:i + 4], "little") for i in range(0, len(data), 4)]
     except OSError:
@@ -52,14 +71,16 @@ def open_devices():
     for path in sorted(glob.glob("/dev/input/event*")):
         try:
             fd = os.open(path, os.O_RDONLY | os.O_NONBLOCK)
-            bits = get_device_key_bits(fd)
-            has_pointer = test_bit(bits, BTN_LEFT) or test_bit(bits, BTN_TOUCH)
-            has_shift = test_bit(bits, KEY_LEFTSHIFT) or test_bit(bits, KEY_RIGHTSHIFT)
-            if has_pointer or has_shift:
+            kwords = get_device_bits(fd, EV_KEY, 256)
+
+            has_left = test_bit(kwords, BTN_LEFT) or test_bit(kwords, BTN_TOUCH)
+            has_alt = test_bit(kwords, KEY_LEFTALT) or test_bit(kwords, KEY_RIGHTALT)
+
+            if has_left or has_alt:
                 devs[fd] = {
                     "path": path,
-                    "pointer": has_pointer,
-                    "keyboard": has_shift,
+                    "has_left": has_left,
+                    "has_alt": has_alt,
                 }
             else:
                 os.close(fd)
@@ -68,14 +89,46 @@ def open_devices():
     return devs
 
 
-def emit(active: bool):
+def load_config():
+    cfg = {"altLeftClick": True}
     try:
-        with open("/tmp/drag_debug.log", "a") as f:
-            f.write(f"EMIT active={active} at {time.time()}\n")
-        sys.stdout.write(json.dumps({"drag_shift": active}) + "\n")
+        if CONFIG_PATH.exists():
+            with open(CONFIG_PATH, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                if isinstance(data, dict):
+                    cfg["altLeftClick"] = data.get("altLeftClick", True) is not False
+    except Exception:
+        pass
+    return cfg
+
+
+def emit(msg: dict):
+    try:
+        sys.stdout.write(json.dumps(msg) + "\n")
         sys.stdout.flush()
     except (IOError, BrokenPipeError):
         sys.exit(0)
+
+
+def get_active_window_class():
+    try:
+        out = subprocess.check_output(
+            ["hyprctl", "activewindow", "-j"],
+            stderr=subprocess.DEVNULL,
+            timeout=0.2
+        ).decode("utf-8", "ignore")
+        data = json.loads(out)
+        cls = data.get("class", "").lower()
+        init_cls = data.get("initialClass", "").lower()
+        return cls, init_cls
+    except Exception:
+        return "", ""
+
+
+def is_file_manager_active():
+    cls, init_cls = get_active_window_class()
+    fm_signatures = ("nautilus", "flea", "dolphin", "thunar", "nemo", "caja", "pcmanfm")
+    return any(sig in cls or sig in init_cls for sig in fm_signatures)
 
 
 def main():
@@ -87,22 +140,29 @@ def main():
     signal.signal(signal.SIGHUP, cleanup)
 
     devices = open_devices()
-    left_button_pressed = 0
-    shift_pressed = 0
-    active_state = False
+    alt_pressed = 0
+
     last_rescan = time.monotonic()
+    last_cfg_check = time.monotonic()
+    last_trigger = 0.0
+    config = load_config()
     parent_pid = os.getppid()
 
-    # Track per-device key state to avoid duplicate press counts
     key_states = {}  # (fd, code) -> bool
 
     try:
         while True:
-            # Check if parent process died
             if os.getppid() != parent_pid or os.getppid() == 1:
                 break
 
             now = time.monotonic()
+
+            # Periodic config reload
+            if now - last_cfg_check > 2.0:
+                last_cfg_check = now
+                config = load_config()
+
+            # Rescan devices
             if now - last_rescan > 4.0:
                 last_rescan = now
                 current_paths = {d["path"] for d in devices.values()}
@@ -115,11 +175,7 @@ def main():
                             pass
                     devices = open_devices()
                     key_states.clear()
-                    left_button_pressed = 0
-                    shift_pressed = 0
-                    if active_state:
-                        active_state = False
-                        emit(False)
+                    alt_pressed = 0
 
             rlist = list(devices.keys())
             if not rlist:
@@ -148,11 +204,8 @@ def main():
 
                 for i in range(0, len(data) - EVENT_SIZE + 1, EVENT_SIZE):
                     _sec, _usec, ev_type, ev_code, ev_val = struct.unpack(FMT, data[i:i + EVENT_SIZE])
-                    if ev_type != EV_KEY:
-                        continue
 
-                    # ev_val: 0 = released, 1 = pressed, 2 = autorepeat
-                    if ev_val == 2:
+                    if ev_type != EV_KEY or ev_val == 2:
                         continue
 
                     is_down = (ev_val == 1)
@@ -161,22 +214,25 @@ def main():
                         continue
                     key_states[(fd, ev_code)] = is_down
 
-                    if ev_code in (BTN_LEFT, BTN_TOUCH) and info["pointer"]:
+                    # Alt key tracking
+                    if ev_code in (KEY_LEFTALT, KEY_RIGHTALT) and info["has_alt"]:
                         if is_down:
-                            left_button_pressed += 1
+                            alt_pressed += 1
                         else:
-                            left_button_pressed = max(0, left_button_pressed - 1)
+                            alt_pressed = max(0, alt_pressed - 1)
 
-                    elif ev_code in (KEY_LEFTSHIFT, KEY_RIGHTSHIFT) and info["keyboard"]:
-                        if is_down:
-                            shift_pressed += 1
-                        else:
-                            shift_pressed = max(0, shift_pressed - 1)
-
-            new_state = (left_button_pressed > 0 and shift_pressed > 0)
-            if new_state != active_state:
-                active_state = new_state
-                emit(active_state)
+                    # Left button trigger with Alt held
+                    elif ev_code in (BTN_LEFT, BTN_TOUCH) and info["has_left"]:
+                        if is_down and config.get("altLeftClick", True):
+                            if alt_pressed > 0 and (now - last_trigger > 0.6):
+                                if is_file_manager_active():
+                                    # Small delay to let the click select the file in Nautilus first
+                                    time.sleep(0.08)
+                                    if detect_selected_files:
+                                        files = detect_selected_files()
+                                        if files:
+                                            last_trigger = now
+                                            emit({"action": "summon", "payload": {"files": files}})
 
     finally:
         for fd in devices:

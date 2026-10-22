@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "id": "dorneles.convert-orb",
-  "name": "Convert Orb",
+  "name": "Morph",
   "version": "0.1.0",
   "author": "Juliano Dorneles",
   "license": "MIT",
-  "description": "Radial format conversion orb powered by SimplyConvertFile. Drag files holding Shift to convert instantly.",
+  "description": "Instant radial format converter powered by SimplyConvertFile for Omarchy.",
   "kinds": [
     "menu"
   ],
