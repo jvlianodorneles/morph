@@ -88,9 +88,9 @@ def detect_selected_files():
     # First clear the clipboard so we don't accidentally pick up an old stale file
     try:
         subprocess.run(["wl-copy", "--clear"], check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        time.sleep(0.04)
-        subprocess.run(["wtype", "-M", "ctrl", "-k", "c", "-m", "ctrl"], check=False, timeout=0.3)
-        time.sleep(0.12)
+        time.sleep(0.05)
+        subprocess.run(["wtype", "-M", "ctrl", "-s", "40", "-k", "c", "-s", "40", "-m", "ctrl"], check=False, timeout=0.35)
+        time.sleep(0.15)
     except Exception:
         pass
 

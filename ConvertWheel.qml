@@ -354,8 +354,8 @@ Item {
                     root.availableFormats = [];
                     root.wheelOpened = false;
                     root.overlayActive = true;
-                    root.cursorPos.running = false;
-                    root.cursorPos.running = true;
+                    cursorPos.running = false;
+                    cursorPos.running = true;
                     root.requestFormats([p]);
                     Qt.callLater(function() { keyHandler.forceActiveFocus(); });
                 } else {
@@ -506,6 +506,19 @@ Item {
                 font.bold: true
                 font.pixelSize: Commons.Style.space(20)
                 color: Commons.Color.accent
+            }
+        }
+
+        // Safety timeout in case a file query hangs
+        Timer {
+            id: loadingSafetyTimer
+            interval: 3500
+            running: root.overlayActive && !root.wheelOpened && !root.settingsOpen
+            onTriggered: {
+                if (root.overlayActive && !root.wheelOpened) {
+                    console.warn("Convert Orb query timed out");
+                    root.dismiss();
+                }
             }
         }
 
