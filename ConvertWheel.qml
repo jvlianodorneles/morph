@@ -292,6 +292,16 @@ Item {
         }
     }
 
+    // Notification process
+    Process {
+        id: notifyProc
+        function send(summary, message) {
+            command = ["notify-send", "-a", "Morph", "-u", "normal", "-i", "dialog-warning", summary, message];
+            running = false;
+            running = true;
+        }
+    }
+
     // Format query process
     Process {
         id: queryProc
@@ -300,6 +310,9 @@ Item {
                 try {
                     var info = JSON.parse(text.trim());
                     if (info.valid && info.available_formats && info.available_formats.length > 0) {
+                        if (info.files && info.files.length > 0) {
+                            root.draggedFiles = info.files;
+                        }
                         root.sourceFormat = info.source_format;
                         root.sourceFilename = info.filename;
                         root.category = info.category;
@@ -314,10 +327,16 @@ Item {
                     } else {
                         root.wheelOpened = false;
                         root.dismiss();
+                        if (info && info.error && root.config.notifications !== false) {
+                            notifyProc.send("Morph", info.error);
+                        }
                     }
                 } catch (e) {
                     root.wheelOpened = false;
                     root.dismiss();
+                    if (text.trim().length > 0 && root.config.notifications !== false) {
+                        notifyProc.send("Morph", "Erro ao carregar formatos de conversão.");
+                    }
                 }
             }
         }
@@ -841,7 +860,7 @@ Item {
                         text: {
                             if (root.converting) return root.statusMessage;
                             if (root.selected >= 0 && root.selected < root.selectionCount) {
-                                return "Convert to " + root.wheelSlices[root.selected];
+                                return (root.draggedFiles.length > 1 ? ("Convert " + root.draggedFiles.length + " files to ") : "Convert to ") + root.wheelSlices[root.selected];
                             }
                             if (root.selected === -2) return "Morph Settings";
                             if (root.draggedFiles.length > 1) {
