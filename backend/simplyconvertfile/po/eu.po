@@ -1,0 +1,704 @@
+# SIMPLY CONVERT FILE
+# This file is put in the public domain.
+# ThigSchuch, 2026
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: simplyconvertfile 2.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/ThigSchuch/SimplyConvertFile/"
+"issues\n"
+"POT-Creation-Date: 2026-02-07 17:51+0000\n"
+"PO-Revision-Date: 2026-03-11 19:11+0000\n"
+"Last-Translator: AI\n"
+"Language-Team: alexgabi, AI\n"
+"Language: eu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/simplyconvertfile/utils/text.py:118
+msgid "File Converter"
+msgstr "Fitxategi bihurtzailea"
+
+#: src/simplyconvertfile/utils/text.py:119
+msgid "Choose output format:"
+msgstr "Aukeratu irteera formatua:"
+
+#: src/simplyconvertfile/utils/text.py:120
+#, python-brace-format
+msgid ""
+"Converting\n"
+"{file} to {extension}"
+msgstr ""
+"Bihurtzen\n"
+"{file} {extension} formatura"
+
+#: src/simplyconvertfile/utils/text.py:121
+msgid "Copy Error"
+msgstr "Kopiatu errorea"
+
+#: src/simplyconvertfile/utils/text.py:122
+msgid "Copy Command"
+msgstr "Kopiatu komandoa"
+
+#: src/simplyconvertfile/utils/text.py:123
+msgid "Report Error"
+msgstr "Jakinarazi errorea"
+
+#: src/simplyconvertfile/utils/text.py:124
+msgid "OK"
+msgstr "Ados"
+
+#: src/simplyconvertfile/utils/text.py:125
+msgid "Cancel"
+msgstr "Utzi"
+
+#: src/simplyconvertfile/utils/text.py:126
+msgid "Cancelling..."
+msgstr "Bertan behera uzten..."
+
+#: src/simplyconvertfile/utils/text.py:127
+msgid "Start"
+msgstr "Hasi"
+
+#: src/simplyconvertfile/utils/text.py:128
+msgid "Error details copied to clipboard"
+msgstr "Errorearen xehetasunak arbelean kopiatu dira"
+
+#: src/simplyconvertfile/utils/text.py:129
+msgid "Install command copied to clipboard"
+msgstr "Instalazio komandoa arbelean kopiatu da"
+
+#: src/simplyconvertfile/utils/text.py:131
+#, python-brace-format
+msgid ""
+"No installation instructions available. Please install '{dependency}' "
+"manually."
+msgstr ""
+"Ez dago instalazio argibiderik eskuragarri. Mesedez, instalatu "
+"'{dependency}' eskuz."
+
+#: src/simplyconvertfile/utils/text.py:133
+msgid "multiple files selected"
+msgstr "fitxategi anitz hautatu dira"
+
+#: src/simplyconvertfile/utils/text.py:138
+msgid "Select one or more files to convert."
+msgstr "Hautatu bihurtzeko fitxategi bat edo gehiago."
+
+#: src/simplyconvertfile/utils/text.py:140
+#, python-brace-format
+msgid ""
+"File not found:\n"
+"{path}\n"
+"\n"
+"Check if the file exists."
+msgstr ""
+"Fitxategia ez da aurkitu:\n"
+"{path}\n"
+"\n"
+"Egiaztatu fitxategia existitzen den."
+
+#: src/simplyconvertfile/utils/text.py:143
+#, python-brace-format
+msgid ""
+"Invalid file:\n"
+"{path}\n"
+"\n"
+"Select a file, not a folder."
+msgstr ""
+"Fitxategi baliogabea:\n"
+"{path}\n"
+"\n"
+"Hautatu fitxategi bat, ez karpeta bat."
+
+#: src/simplyconvertfile/utils/text.py:146
+#, python-brace-format
+msgid ""
+"No file extension:\n"
+"{path}\n"
+"\n"
+"Add an extension (e.g., .jpg, .mp4, .pdf) to determine the format."
+msgstr ""
+"Ez dago fitxategi luzapenik:\n"
+"{path}\n"
+"\n"
+"Gehitu luzapen bat (adib. .jpg, .mp4, .pdf) formatua zehazteko."
+
+#: src/simplyconvertfile/utils/text.py:149
+#, python-brace-format
+msgid "Unsupported file format: {extension}"
+msgstr "Onartu gabeko fitxategi formatua: {extension}"
+
+#: src/simplyconvertfile/utils/text.py:151
+#, python-brace-format
+msgid ""
+"The file '{filename}' has an unsupported format ({extension}).\n"
+"\n"
+"This format is not recognized by the converter or the required tools are not "
+"installed on your system."
+msgstr ""
+"'{filename}' fitxategiak onartu gabeko formatua du ({extension}).\n"
+"\n"
+"Formatu hau ez da bihurtzaileak ezagutzen edo beharrezko tresnak ez daude "
+"instalatuta zure sisteman."
+
+#: src/simplyconvertfile/utils/text.py:156
+#, python-brace-format
+msgid ""
+"Found {error_count} validation error(s) in the selected files:\n"
+"\n"
+"{errors}\n"
+"\n"
+"The process will continue with valid files only."
+msgstr ""
+"{error_count} balidazio errore aurkitu dira hautatutako fitxategietan:\n"
+"\n"
+"{errors}\n"
+"\n"
+"Prozesua fitxategi baliozkoekin bakarrik jarraituko du."
+
+#: src/simplyconvertfile/utils/text.py:164
+msgid "Conversion failed."
+msgstr "Bihurketa huts egin du."
+
+#: src/simplyconvertfile/utils/text.py:165
+msgid "No converter found for this format"
+msgstr "Ez da bihurtzailerik aurkitu formatu honetarako"
+
+#: src/simplyconvertfile/utils/text.py:167
+#, python-brace-format
+msgid ""
+"No converters available for {extension} files.\n"
+"\n"
+"File: {filename}\n"
+"\n"
+"Possible causes:\n"
+"• Missing rules\n"
+"• Missing required tools\n"
+"• Unsupported format\n"
+"• Installation issue\n"
+"\n"
+"Check system dependencies."
+msgstr ""
+"Ez dago bihurtzailerik eskuragarri {extension} fitxategientzako.\n"
+"\n"
+"Fitxategia: {filename}\n"
+"\n"
+"Arrazoi posibleak:\n"
+"• Arauak falta dira\n"
+"• Beharrezko tresnak falta dira\n"
+"• Onartu gabeko formatua\n"
+"• Instalazio arazoa\n"
+"\n"
+"Egiaztatu sistema mendekotasunak."
+
+#: src/simplyconvertfile/utils/text.py:177
+#, python-brace-format
+msgid ""
+"Failed to create converter for {source} → {target}\n"
+"\n"
+"File: {file}\n"
+"\n"
+"This could indicate:\n"
+"• Missing conversion tools\n"
+"• Incompatible format combination\n"
+"• System configuration issue"
+msgstr ""
+"Ezin izan da bihurtzailea sortu {source} → {target}entzako\n"
+"\n"
+"Fitxategia: {file}\n"
+"\n"
+"Hau adierazi dezake:\n"
+"• Bihurketa tresnak falta dira\n"
+"• Formatua konbinazio bateraezina\n"
+"• Sistema konfigurazio arazoa"
+
+#: src/simplyconvertfile/utils/text.py:185
+#, python-brace-format
+msgid ""
+"Converting {current} of {total} files to {extension}\n"
+"{file}"
+msgstr ""
+"{current}/{total} fitxategiak {extension} formatura bihurtzen\n"
+"{file}"
+
+#: src/simplyconvertfile/utils/text.py:188
+#, python-brace-format
+msgid ""
+"Failed to create or access output directory.\n"
+"\n"
+"Error: {error}"
+msgstr ""
+"Ezin izan da irteera direktorioa sortu edo atzitu.\n"
+"\n"
+"Errorea: {error}"
+
+#: src/simplyconvertfile/utils/text.py:190
+#, python-brace-format
+msgid "Conversion failed: {error}"
+msgstr "Bihurketa huts egin du: {error}"
+
+#: src/simplyconvertfile/utils/text.py:191
+msgid "Conversion cancelled by user"
+msgstr "Bihurketa erabiltzaileak bertan behera utzi du"
+
+#: src/simplyconvertfile/utils/text.py:193
+msgid ""
+"Conversion failed - check if required tools are installed (e.g., ffmpeg, "
+"convert, 7z, rar, etc.) and the file format is supported"
+msgstr ""
+"Bihurketa huts egin du - egiaztatu beharrezko tresnak instalatuta dauden "
+"(adib. ffmpeg, convert, 7z, rar, etab.) eta fitxategi formatua onartzen den"
+
+#: src/simplyconvertfile/utils/text.py:196
+#, python-brace-format
+msgid "Template error: {error}"
+msgstr "Txantiloi errorea: {error}"
+
+#: src/simplyconvertfile/utils/text.py:201
+#: src/simplyconvertfile/utils/text.py:292
+#, python-brace-format
+msgid "Required tool '{tool}' is not installed."
+msgstr "Beharrezko tresna '{tool}' ez dago instalatuta."
+
+#: src/simplyconvertfile/utils/text.py:203
+#, python-brace-format
+msgid "The conversion tool '{tool}' is required but not found on your system."
+msgstr "Bihurketa tresna '{tool}' behar da baina ez da aurkitu zure sisteman."
+
+#: src/simplyconvertfile/utils/text.py:206
+#, python-brace-format
+msgid ""
+"Missing Tool: {tool}\n"
+"\n"
+"Install Command:\n"
+"{install_command}\n"
+"\n"
+"Instructions:\n"
+"Copy the install command above and run it in your terminal. If the command "
+"does not work, please refer to your distribution's package manager or the "
+"tool's official installation instructions."
+msgstr ""
+"Tresna falta da: {tool}\n"
+"\n"
+"Instalazio komandoa:\n"
+"{install_command}\n"
+"\n"
+"Argibideak:\n"
+"Kopiatu goiko instalazio komandoa eta exekutatu zure terminalean. Komandoak "
+"ez badu funtzionatzen, jo zure banaketaren pakete kudeatzailearengana edo "
+"tresnaren instalazio argibide ofizialetara."
+
+#: src/simplyconvertfile/utils/text.py:213
+msgid "An unexpected error occurred during conversion."
+msgstr "Ustekabeko errore bat gertatu da bihurketan."
+
+#: src/simplyconvertfile/utils/text.py:215
+msgid ""
+"Required tool not found. Please make sure all required conversion tools are "
+"installed (e.g., ffmpeg, convert, etc.)"
+msgstr ""
+"Beharrezko tresna ez da aurkitu. Mesedez, ziurtatu bihurketa tresna guztiak "
+"instalatuta daudela (adib. ffmpeg, convert, etab.)"
+
+#: src/simplyconvertfile/utils/text.py:219
+#, python-brace-format
+msgid ""
+"Shell command execution failed.\n"
+"\n"
+"Error: {error}\n"
+"\n"
+"Command: {command}"
+msgstr ""
+"Shell komandoaren exekuzioak huts egin du.\n"
+"\n"
+"Errorea: {error}\n"
+"\n"
+"Komandoa: {command}"
+
+#: src/simplyconvertfile/utils/text.py:222
+#, python-brace-format
+msgid ""
+"Chained command execution failed.\n"
+"\n"
+"Error: {error}\n"
+"\n"
+"Command: {command}"
+msgstr ""
+"Kateatutako komandoaren exekuzioak huts egin du.\n"
+"\n"
+"Errorea: {error}\n"
+"\n"
+"Komandoa: {command}"
+
+#: src/simplyconvertfile/utils/text.py:224
+#, python-brace-format
+msgid ""
+"Failed conversions:\n"
+"\n"
+"{errors}"
+msgstr ""
+"Huts egindako bihurketak:\n"
+"\n"
+"{errors}"
+
+#: src/simplyconvertfile/utils/text.py:225
+msgid "Failed to create temporary directory"
+msgstr "Ezin izan da aldi baterako direktorioa sortu"
+
+#: src/simplyconvertfile/utils/text.py:226
+msgid "Temporary directory not available"
+msgstr "Aldi baterako direktorioa ez dago eskuragarri"
+
+#: src/simplyconvertfile/utils/text.py:227
+msgid "Temporary directory does not exist"
+msgstr "Aldi baterako direktorioa ez da existitzen"
+
+#: src/simplyconvertfile/utils/text.py:228
+msgid "No archive template available in settings"
+msgstr "Ez dago artxibo txantiloirik eskuragarri ezarpenetan"
+
+#: src/simplyconvertfile/utils/text.py:229
+msgid "No contents found in extracted archive"
+msgstr "Ez da edukirik aurkitu erauzitako artxiboan"
+
+#: src/simplyconvertfile/utils/text.py:234
+msgid "Operation failed"
+msgstr "Eragiketak huts egin du"
+
+#: src/simplyconvertfile/utils/text.py:235
+msgid "Operation cancelled by user"
+msgstr "Eragiketa erabiltzaileak bertan behera utzi du"
+
+#: src/simplyconvertfile/utils/text.py:237
+#, python-brace-format
+msgid ""
+"Step {step}/{total} failed.\n"
+"\n"
+"Error: {error}\n"
+"\n"
+"Command: {command}"
+msgstr ""
+"{step}/{total} urratsak huts egin du.\n"
+"\n"
+"Errorea: {error}\n"
+"\n"
+"Komandoa: {command}"
+
+#: src/simplyconvertfile/utils/text.py:240
+#, python-brace-format
+msgid ""
+"File validation failed: {file}\n"
+"\n"
+"The previous conversion step likely failed.\n"
+"\n"
+"Previous step output:\n"
+"{previous_error}"
+msgstr ""
+
+#: src/simplyconvertfile/utils/text.py:244
+msgid "Batch conversion cancelled"
+msgstr "Sortako bihurketa bertan behera utzi da"
+
+#: src/simplyconvertfile/utils/text.py:246
+#, python-brace-format
+msgid "Batch conversion completed with {error_count} error(s)."
+msgstr "Sortako bihurketa {error_count} errorekin amaitu da."
+
+#: src/simplyconvertfile/utils/text.py:248
+msgid "No command to execute"
+msgstr "Ez dago exekutatzeko komandorik"
+
+#: src/simplyconvertfile/utils/text.py:253
+msgid "Conversion Complete"
+msgstr "Bihurketa osatu da"
+
+#: src/simplyconvertfile/utils/text.py:254
+#, python-brace-format
+msgid "Successfully converted {filename} to {extension}"
+msgstr "{filename} {extension} formatura ongi bihurtu da"
+
+#: src/simplyconvertfile/utils/text.py:255
+msgid "Conversion Failed"
+msgstr "Bihurketa huts egin du"
+
+#: src/simplyconvertfile/utils/text.py:256
+#, python-brace-format
+msgid "Failed to convert {filename} to {extension}"
+msgstr "Ezin izan da {filename} {extension} formatura bihurtu"
+
+#: src/simplyconvertfile/utils/text.py:257
+msgid "Batch Conversion Complete"
+msgstr "Sortako bihurketa osatu da"
+
+#: src/simplyconvertfile/utils/text.py:259
+#, python-brace-format
+msgid "Successfully converted {successful} of {total} files to {extension}"
+msgstr "{successful}/{total} fitxategi {extension} formatura ongi bihurtu dira"
+
+#: src/simplyconvertfile/utils/text.py:261
+msgid "Batch Conversion Failed"
+msgstr "Sortako bihurketa huts egin du"
+
+#: src/simplyconvertfile/utils/text.py:263
+#, python-brace-format
+msgid "Failed to convert {failed} of {total} files to {extension}"
+msgstr "Ezin izan da {failed}/{total} fitxategi {extension} formatura bihurtu"
+
+#: src/simplyconvertfile/utils/text.py:265
+msgid "Conversion Started"
+msgstr "Bihurketa hasi da"
+
+#: src/simplyconvertfile/utils/text.py:267
+#, python-brace-format
+msgid "Conversion started for {filename} to {extension}"
+msgstr "{filename} fitxategirako bihurketa hasi da {extension} formatura"
+
+#: src/simplyconvertfile/utils/text.py:269
+msgid "Batch Conversion Started"
+msgstr "Sortako bihurketa hasi da"
+
+#: src/simplyconvertfile/utils/text.py:271
+#, python-brace-format
+msgid "Batch conversion of {total} files to {extension} has started"
+msgstr "{total} fitxategien sortako bihurketa {extension} formatura hasi da"
+
+#: src/simplyconvertfile/utils/text.py:273
+msgid "Batch Step Conversion Started"
+msgstr "Sortako urratsaren bihurketa hasi da"
+
+#: src/simplyconvertfile/utils/text.py:275
+#, python-brace-format
+msgid "Converting {filename} to {extension}"
+msgstr "{filename} {extension} formatura bihurtzen"
+
+#: src/simplyconvertfile/utils/text.py:277
+msgid "Batch Conversion Cancelled"
+msgstr "Sortako bihurketa bertan behera utzi da"
+
+#: src/simplyconvertfile/utils/text.py:279
+#, python-brace-format
+msgid ""
+"Conversion cancelled after processing {completed} of {total} files to "
+"{extension}"
+msgstr ""
+"Bihurketa bertan behera utzi da {completed}/{total} fitxategi prozesatu "
+"ondoren {extension} formatura"
+
+#: src/simplyconvertfile/utils/text.py:281
+msgid "Conversion Cancelled"
+msgstr "Bihurketa bertan behera utzi da"
+
+#: src/simplyconvertfile/utils/text.py:283
+#, python-brace-format
+msgid "File conversion to {extension} was cancelled"
+msgstr "Fitxategiaren bihurketa {extension} formatura bertan behera utzi da"
+
+#: src/simplyconvertfile/utils/text.py:285
+msgid "Settings Error"
+msgstr "Ezarpen errorea"
+
+#: src/simplyconvertfile/utils/text.py:287
+#, fuzzy
+msgid ""
+"User settings file is corrupted\n"
+"(~/.config/simplyconvertfile/user_settings.json)\n"
+"Using default settings instead."
+msgstr ""
+"Erabiltzailearen ezarpen fitxategia hondatuta dago\n"
+"(~/.config/simplyconvertfile/user_settings.json)\n"
+"Defektuzko ezarpenak erabiltzen ordez."
+
+#: src/simplyconvertfile/utils/text.py:291
+msgid "Missing Conversion Tool"
+msgstr "Bihurketa tresna falta da"
+
+#: src/simplyconvertfile/utils/text.py:297
+msgid "Dangerous Command Blocked"
+msgstr "Komando arriskutsua blokeatuta"
+
+#: src/simplyconvertfile/utils/text.py:299
+#, python-brace-format
+msgid ""
+"A potentially dangerous command was blocked.\n"
+"\n"
+"Reason: {reason}\n"
+"\n"
+"Command: {command}\n"
+"\n"
+"If you need to allow dangerous commands, enable the "
+"'allow_dangerous_commands' option in your user settings."
+msgstr ""
+"Komando arriskutsu potentzial bat blokeatu da.\n"
+"\n"
+"Arrazoia: {reason}\n"
+"\n"
+"Komandoa: {command}\n"
+"\n"
+"Komando arriskutsuak baimendu behar badituzu, gaitu "
+"'allow_dangerous_commands' aukera zure erabiltzaile-ezarpenetan."
+
+#: src/simplyconvertfile/utils/text.py:305
+msgid "Potentially Dangerous Command"
+msgstr "Komando potentzialki arriskutsua"
+
+#: src/simplyconvertfile/utils/text.py:307
+#, python-brace-format
+msgid ""
+"The following command contains a potentially dangerous operation and "
+"requires your confirmation to proceed.\n"
+"\n"
+"Reason: {reason}\n"
+"\n"
+"Command:\n"
+"{command}"
+msgstr ""
+"Hurrengo komandoak eragiketa potentzialki arriskutsu bat dauka eta zure "
+"berrespena behar du aurrera jarraitzeko.\n"
+"\n"
+"Arrazoia: {reason}\n"
+"\n"
+"Komandoa:\n"
+"{command}"
+
+#: src/simplyconvertfile/utils/text.py:312
+msgid "Continue Anyway"
+msgstr "Jarraitu hala ere"
+
+#: src/simplyconvertfile/utils/text.py:315
+msgid "privilege escalation"
+msgstr "pribilegioen igoera"
+
+#: src/simplyconvertfile/utils/text.py:316
+msgid "file deletion"
+msgstr "fitxategi ezabaketa"
+
+#: src/simplyconvertfile/utils/text.py:317
+msgid "directory deletion"
+msgstr "direktorio ezabaketa"
+
+#: src/simplyconvertfile/utils/text.py:318
+msgid "file destruction"
+msgstr "fitxategi suntsipena"
+
+#: src/simplyconvertfile/utils/text.py:319
+msgid "file truncation"
+msgstr "fitxategi moztea"
+
+#: src/simplyconvertfile/utils/text.py:320
+msgid "raw disk operation"
+msgstr "disko gordina eragiketa"
+
+#: src/simplyconvertfile/utils/text.py:321
+msgid "filesystem creation"
+msgstr "fitxategi-sistema sortzea"
+
+#: src/simplyconvertfile/utils/text.py:322
+msgid "disk partitioning"
+msgstr "disko partizionatzea"
+
+#: src/simplyconvertfile/utils/text.py:323
+msgid "filesystem signature removal"
+msgstr "fitxategi-sistema sinadura kentzea"
+
+#: src/simplyconvertfile/utils/text.py:324
+msgid "block device discard"
+msgstr "bloke gailua baztertzea"
+
+#: src/simplyconvertfile/utils/text.py:325
+msgid "system shutdown"
+msgstr "sistema itzaltzea"
+
+#: src/simplyconvertfile/utils/text.py:326
+msgid "system reboot"
+msgstr "sistema berrabiaraztea"
+
+#: src/simplyconvertfile/utils/text.py:327
+msgid "system power off"
+msgstr "sistema energia itzaltzea"
+
+#: src/simplyconvertfile/utils/text.py:328
+msgid "system halt"
+msgstr "sistema gelditzea"
+
+#: src/simplyconvertfile/utils/text.py:329
+msgid "system init control"
+msgstr "sistema init kontrola"
+
+#: src/simplyconvertfile/utils/text.py:330
+msgid "system service control"
+msgstr "sistema zerbitzu kontrola"
+
+#: src/simplyconvertfile/utils/text.py:331
+msgid "network access"
+msgstr "sare sarbidea"
+
+#: src/simplyconvertfile/utils/text.py:332
+msgid "network download"
+msgstr "sare deskarga"
+
+#: src/simplyconvertfile/utils/text.py:333
+msgid "network connection"
+msgstr "sare konexioa"
+
+#: src/simplyconvertfile/utils/text.py:334
+msgid "remote shell access"
+msgstr "urruneko shell sarbidea"
+
+#: src/simplyconvertfile/utils/text.py:335
+msgid "remote file copy"
+msgstr "urruneko fitxategi kopia"
+
+#: src/simplyconvertfile/utils/text.py:336
+msgid "remote file sync"
+msgstr "urruneko fitxategi sinkronizazioa"
+
+#: src/simplyconvertfile/utils/text.py:337
+msgid "file transfer"
+msgstr "fitxategi transferentzia"
+
+#: src/simplyconvertfile/utils/text.py:338
+msgid "permission change"
+msgstr "baimen aldaketa"
+
+#: src/simplyconvertfile/utils/text.py:339
+msgid "ownership change"
+msgstr "jabetza aldaketa"
+
+#: src/simplyconvertfile/utils/text.py:340
+msgid "group ownership change"
+msgstr "talde jabetza aldaketa"
+
+#: src/simplyconvertfile/utils/text.py:341
+msgid "shell code execution"
+msgstr "shell kode exekuzioa"
+
+#: src/simplyconvertfile/utils/text.py:342
+msgid "dangerous operation"
+msgstr "eragiketa arriskutsua"
+
+#: src/simplyconvertfile/utils/text.py:348
+msgid ""
+"Universal file format converter for Linux. Supports images, videos, audio, "
+"documents, and archives."
+msgstr ""
+"Linuxerako formatu universaleko bihurtzailea. Irudiak, bideoak, audioa, "
+"dokumentuak eta artxiboak onartzen ditu."
+
+#: src/simplyconvertfile/utils/text.py:351
+msgid "File paths to convert (optional; opens picker if none)"
+msgstr ""
+"Bihurtzeko fitxategi-bideak (aukera-askoa; ez badaude, hautatzailea irekiko "
+"du)"
+
+#: src/simplyconvertfile/utils/text.py:353
+#, python-brace-format
+msgid "For more info, visit {url}"
+msgstr "Informazio gehiago lortzeko, bisitatu {url}"
+
+#~ msgid "Converts a file to a different format"
+#~ msgstr "Fitxategi bat formatu desberdin batera bihurtzen du"
+
+#~ msgid "Convert File"
+#~ msgstr "Bihurtu fitxategia"

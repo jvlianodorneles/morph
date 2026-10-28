@@ -1,0 +1,703 @@
+# SIMPLY CONVERT FILE
+# This file is put in the public domain.
+# ThigSchuch, 2026
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: simplyconvertfile 2.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/ThigSchuch/SimplyConvertFile/"
+"issues\n"
+"POT-Creation-Date: 2026-02-07 17:51+0000\n"
+"PO-Revision-Date: 2026-03-11 19:11+0000\n"
+"Last-Translator: AI\n"
+"Language-Team: CZmisaCZ <CZmisaCZ@email.cz>, AI\n"
+"Language: cs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/simplyconvertfile/utils/text.py:118
+msgid "File Converter"
+msgstr "Převodník souborů"
+
+#: src/simplyconvertfile/utils/text.py:119
+msgid "Choose output format:"
+msgstr "Vyberte výstupní formát:"
+
+#: src/simplyconvertfile/utils/text.py:120
+#, python-brace-format
+msgid ""
+"Converting\n"
+"{file} to {extension}"
+msgstr ""
+"Převádění\n"
+"{file} na {extension}"
+
+#: src/simplyconvertfile/utils/text.py:121
+msgid "Copy Error"
+msgstr "Kopírovat chybu"
+
+#: src/simplyconvertfile/utils/text.py:122
+msgid "Copy Command"
+msgstr "Kopírovat příkaz"
+
+#: src/simplyconvertfile/utils/text.py:123
+msgid "Report Error"
+msgstr "Nahlásit chybu"
+
+#: src/simplyconvertfile/utils/text.py:124
+msgid "OK"
+msgstr "OK"
+
+#: src/simplyconvertfile/utils/text.py:125
+msgid "Cancel"
+msgstr "Zrušit"
+
+#: src/simplyconvertfile/utils/text.py:126
+msgid "Cancelling..."
+msgstr "Rušení..."
+
+#: src/simplyconvertfile/utils/text.py:127
+msgid "Start"
+msgstr "Spustit"
+
+#: src/simplyconvertfile/utils/text.py:128
+msgid "Error details copied to clipboard"
+msgstr "Podrobnosti chyby zkopírovány do schránky"
+
+#: src/simplyconvertfile/utils/text.py:129
+msgid "Install command copied to clipboard"
+msgstr "Instalační příkaz zkopírovaný do schránky"
+
+#: src/simplyconvertfile/utils/text.py:131
+#, python-brace-format
+msgid ""
+"No installation instructions available. Please install '{dependency}' "
+"manually."
+msgstr ""
+"Nejsou k dispozici instalační instrukce. Nainstalujte prosím '{dependency}' "
+"ručně."
+
+#: src/simplyconvertfile/utils/text.py:133
+msgid "multiple files selected"
+msgstr "vybráno více souborů"
+
+#: src/simplyconvertfile/utils/text.py:138
+msgid "Select one or more files to convert."
+msgstr "Vyberte jeden nebo více souborů k převodu."
+
+#: src/simplyconvertfile/utils/text.py:140
+#, python-brace-format
+msgid ""
+"File not found:\n"
+"{path}\n"
+"\n"
+"Check if the file exists."
+msgstr ""
+"Soubor nenalezen:\n"
+"{path}\n"
+"\n"
+"Zkontrolujte, zda soubor existuje."
+
+#: src/simplyconvertfile/utils/text.py:143
+#, python-brace-format
+msgid ""
+"Invalid file:\n"
+"{path}\n"
+"\n"
+"Select a file, not a folder."
+msgstr ""
+"Neplatný soubor:\n"
+"{path}\n"
+"\n"
+"Vyberte soubor, ne složku."
+
+#: src/simplyconvertfile/utils/text.py:146
+#, python-brace-format
+msgid ""
+"No file extension:\n"
+"{path}\n"
+"\n"
+"Add an extension (e.g., .jpg, .mp4, .pdf) to determine the format."
+msgstr ""
+"Žádná přípona souboru:\n"
+"{path}\n"
+"\n"
+"Přidejte příponu (např. .jpg, .mp4, .pdf) pro určení formátu."
+
+#: src/simplyconvertfile/utils/text.py:149
+#, python-brace-format
+msgid "Unsupported file format: {extension}"
+msgstr "Nepodporovaný formát souboru: {extension}"
+
+#: src/simplyconvertfile/utils/text.py:151
+#, python-brace-format
+msgid ""
+"The file '{filename}' has an unsupported format ({extension}).\n"
+"\n"
+"This format is not recognized by the converter or the required tools are not "
+"installed on your system."
+msgstr ""
+"Soubor '{filename}' má nepodporovaný formát ({extension}).\n"
+"\n"
+"Tento formát není rozpoznán převodníkem nebo požadované nástroje nejsou "
+"nainstalovány ve vašem systému."
+
+#: src/simplyconvertfile/utils/text.py:156
+#, python-brace-format
+msgid ""
+"Found {error_count} validation error(s) in the selected files:\n"
+"\n"
+"{errors}\n"
+"\n"
+"The process will continue with valid files only."
+msgstr ""
+"Nalezeno {error_count} validačních chyb ve vybraných souborech:\n"
+"\n"
+"{errors}\n"
+"\n"
+"Proces bude pokračovat pouze s platnými soubory."
+
+#: src/simplyconvertfile/utils/text.py:164
+msgid "Conversion failed."
+msgstr "Převod selhal."
+
+#: src/simplyconvertfile/utils/text.py:165
+msgid "No converter found for this format"
+msgstr "Nenalezen žádný převodník pro tento formát"
+
+#: src/simplyconvertfile/utils/text.py:167
+#, python-brace-format
+msgid ""
+"No converters available for {extension} files.\n"
+"\n"
+"File: {filename}\n"
+"\n"
+"Possible causes:\n"
+"• Missing rules\n"
+"• Missing required tools\n"
+"• Unsupported format\n"
+"• Installation issue\n"
+"\n"
+"Check system dependencies."
+msgstr ""
+"Žádné převodníky nejsou k dispozici pro soubory {extension}.\n"
+"\n"
+"Soubor: {filename}\n"
+"\n"
+"Možné příčiny:\n"
+"• Chybějící pravidla\n"
+"• Chybějící požadované nástroje\n"
+"• Nepodporovaný formát\n"
+"• Problém s instalací\n"
+"\n"
+"Zkontrolujte závislosti systému."
+
+#: src/simplyconvertfile/utils/text.py:177
+#, python-brace-format
+msgid ""
+"Failed to create converter for {source} → {target}\n"
+"\n"
+"File: {file}\n"
+"\n"
+"This could indicate:\n"
+"• Missing conversion tools\n"
+"• Incompatible format combination\n"
+"• System configuration issue"
+msgstr ""
+"Nepodařilo se vytvořit převodník pro {source} → {target}\n"
+"\n"
+"Soubor: {file}\n"
+"\n"
+"To může znamenat:\n"
+"• Chybějící nástroje pro převod\n"
+"• Nekompatibilní kombinace formátů\n"
+"• Problém s konfigurací systému"
+
+#: src/simplyconvertfile/utils/text.py:185
+#, python-brace-format
+msgid ""
+"Converting {current} of {total} files to {extension}\n"
+"{file}"
+msgstr ""
+"Převádění {current} z {total} souborů na {extension}\n"
+"{file}"
+
+#: src/simplyconvertfile/utils/text.py:188
+#, python-brace-format
+msgid ""
+"Failed to create or access output directory.\n"
+"\n"
+"Error: {error}"
+msgstr ""
+"Nepodařilo se vytvořit nebo přistupovat k výstupnímu adresáři.\n"
+"\n"
+"Chyba: {error}"
+
+#: src/simplyconvertfile/utils/text.py:190
+#, python-brace-format
+msgid "Conversion failed: {error}"
+msgstr "Převod selhal: {error}"
+
+#: src/simplyconvertfile/utils/text.py:191
+msgid "Conversion cancelled by user"
+msgstr "Převod zrušen uživatelem"
+
+#: src/simplyconvertfile/utils/text.py:193
+msgid ""
+"Conversion failed - check if required tools are installed (e.g., ffmpeg, "
+"convert, 7z, rar, etc.) and the file format is supported"
+msgstr ""
+"Převod selhal - zkontrolujte, zda jsou nainstalovány požadované nástroje "
+"(např. ffmpeg, convert, 7z, rar atd.) a zda je formát souboru podporován"
+
+#: src/simplyconvertfile/utils/text.py:196
+#, python-brace-format
+msgid "Template error: {error}"
+msgstr "Chyba šablony: {error}"
+
+#: src/simplyconvertfile/utils/text.py:201
+#: src/simplyconvertfile/utils/text.py:292
+#, python-brace-format
+msgid "Required tool '{tool}' is not installed."
+msgstr "Požadovaný nástroj '{tool}' není nainstalován."
+
+#: src/simplyconvertfile/utils/text.py:203
+#, python-brace-format
+msgid "The conversion tool '{tool}' is required but not found on your system."
+msgstr ""
+"Převodní nástroj '{tool}' je požadován, ale nebyl nalezen ve vašem systému."
+
+#: src/simplyconvertfile/utils/text.py:206
+#, python-brace-format
+msgid ""
+"Missing Tool: {tool}\n"
+"\n"
+"Install Command:\n"
+"{install_command}\n"
+"\n"
+"Instructions:\n"
+"Copy the install command above and run it in your terminal. If the command "
+"does not work, please refer to your distribution's package manager or the "
+"tool's official installation instructions."
+msgstr ""
+"Chybějící nástroj: {tool}\n"
+"\n"
+"Instalační příkaz:\n"
+"{install_command}\n"
+"\n"
+"Instrukce:\n"
+"Zkopírujte instalační příkaz výše a spusťte jej v terminálu. Pokud příkaz "
+"nefunguje, obraťte se na správce balíčků vaší distribuce nebo oficiální "
+"instalační instrukce nástroje."
+
+#: src/simplyconvertfile/utils/text.py:213
+msgid "An unexpected error occurred during conversion."
+msgstr "Během převodu došlo k neočekávané chybě."
+
+#: src/simplyconvertfile/utils/text.py:215
+msgid ""
+"Required tool not found. Please make sure all required conversion tools are "
+"installed (e.g., ffmpeg, convert, etc.)"
+msgstr ""
+"Požadovaný nástroj nebyl nalezen. Ujistěte se, že jsou nainstalovány všechny "
+"požadované převodní nástroje (např. ffmpeg, convert atd.)"
+
+#: src/simplyconvertfile/utils/text.py:219
+#, python-brace-format
+msgid ""
+"Shell command execution failed.\n"
+"\n"
+"Error: {error}\n"
+"\n"
+"Command: {command}"
+msgstr ""
+"Spuštění shell příkazu selhalo.\n"
+"\n"
+"Chyba: {error}\n"
+"\n"
+"Příkaz: {command}"
+
+#: src/simplyconvertfile/utils/text.py:222
+#, python-brace-format
+msgid ""
+"Chained command execution failed.\n"
+"\n"
+"Error: {error}\n"
+"\n"
+"Command: {command}"
+msgstr ""
+"Spuštění řetězeného příkazu selhalo.\n"
+"\n"
+"Chyba: {error}\n"
+"\n"
+"Příkaz: {command}"
+
+#: src/simplyconvertfile/utils/text.py:224
+#, python-brace-format
+msgid ""
+"Failed conversions:\n"
+"\n"
+"{errors}"
+msgstr ""
+"Selhavší převody:\n"
+"\n"
+"{errors}"
+
+#: src/simplyconvertfile/utils/text.py:225
+msgid "Failed to create temporary directory"
+msgstr "Nepodařilo se vytvořit dočasný adresář"
+
+#: src/simplyconvertfile/utils/text.py:226
+msgid "Temporary directory not available"
+msgstr "Dočasný adresář není k dispozici"
+
+#: src/simplyconvertfile/utils/text.py:227
+msgid "Temporary directory does not exist"
+msgstr "Dočasný adresář neexistuje"
+
+#: src/simplyconvertfile/utils/text.py:228
+msgid "No archive template available in settings"
+msgstr "V nastavení není k dispozici žádná šablona archivu"
+
+#: src/simplyconvertfile/utils/text.py:229
+msgid "No contents found in extracted archive"
+msgstr "V rozbaleném archivu nebyl nalezen žádný obsah"
+
+#: src/simplyconvertfile/utils/text.py:234
+msgid "Operation failed"
+msgstr "Operace selhala"
+
+#: src/simplyconvertfile/utils/text.py:235
+msgid "Operation cancelled by user"
+msgstr "Operace zrušena uživatelem"
+
+#: src/simplyconvertfile/utils/text.py:237
+#, python-brace-format
+msgid ""
+"Step {step}/{total} failed.\n"
+"\n"
+"Error: {error}\n"
+"\n"
+"Command: {command}"
+msgstr ""
+"Krok {step}/{total} selhal.\n"
+"\n"
+"Chyba: {error}\n"
+"\n"
+"Příkaz: {command}"
+
+#: src/simplyconvertfile/utils/text.py:240
+#, python-brace-format
+msgid ""
+"File validation failed: {file}\n"
+"\n"
+"The previous conversion step likely failed.\n"
+"\n"
+"Previous step output:\n"
+"{previous_error}"
+msgstr ""
+
+#: src/simplyconvertfile/utils/text.py:244
+msgid "Batch conversion cancelled"
+msgstr "Dávkový převod zrušen"
+
+#: src/simplyconvertfile/utils/text.py:246
+#, python-brace-format
+msgid "Batch conversion completed with {error_count} error(s)."
+msgstr "Dávkový převod dokončen s {error_count} chybami."
+
+#: src/simplyconvertfile/utils/text.py:248
+msgid "No command to execute"
+msgstr "Žádný příkaz k provedení"
+
+#: src/simplyconvertfile/utils/text.py:253
+msgid "Conversion Complete"
+msgstr "Převod dokončen"
+
+#: src/simplyconvertfile/utils/text.py:254
+#, python-brace-format
+msgid "Successfully converted {filename} to {extension}"
+msgstr "Úspěšně převedeno {filename} na {extension}"
+
+#: src/simplyconvertfile/utils/text.py:255
+msgid "Conversion Failed"
+msgstr "Převod selhal"
+
+#: src/simplyconvertfile/utils/text.py:256
+#, python-brace-format
+msgid "Failed to convert {filename} to {extension}"
+msgstr "Nepodařilo se převést {filename} na {extension}"
+
+#: src/simplyconvertfile/utils/text.py:257
+msgid "Batch Conversion Complete"
+msgstr "Dávkový převod dokončen"
+
+#: src/simplyconvertfile/utils/text.py:259
+#, python-brace-format
+msgid "Successfully converted {successful} of {total} files to {extension}"
+msgstr "Úspěšně převedeno {successful} z {total} souborů na {extension}"
+
+#: src/simplyconvertfile/utils/text.py:261
+msgid "Batch Conversion Failed"
+msgstr "Dávkový převod selhal"
+
+#: src/simplyconvertfile/utils/text.py:263
+#, python-brace-format
+msgid "Failed to convert {failed} of {total} files to {extension}"
+msgstr "Nepodařilo se převést {failed} z {total} souborů na {extension}"
+
+#: src/simplyconvertfile/utils/text.py:265
+msgid "Conversion Started"
+msgstr "Převod spuštěn"
+
+#: src/simplyconvertfile/utils/text.py:267
+#, python-brace-format
+msgid "Conversion started for {filename} to {extension}"
+msgstr "Převod spuštěn pro {filename} na {extension}"
+
+#: src/simplyconvertfile/utils/text.py:269
+msgid "Batch Conversion Started"
+msgstr "Dávkový převod spuštěn"
+
+#: src/simplyconvertfile/utils/text.py:271
+#, python-brace-format
+msgid "Batch conversion of {total} files to {extension} has started"
+msgstr "Dávkový převod {total} souborů na {extension} byl spuštěn"
+
+#: src/simplyconvertfile/utils/text.py:273
+msgid "Batch Step Conversion Started"
+msgstr "Dávkový krok převodu spuštěn"
+
+#: src/simplyconvertfile/utils/text.py:275
+#, python-brace-format
+msgid "Converting {filename} to {extension}"
+msgstr "Převádění {filename} na {extension}"
+
+#: src/simplyconvertfile/utils/text.py:277
+msgid "Batch Conversion Cancelled"
+msgstr "Dávkový převod zrušen"
+
+#: src/simplyconvertfile/utils/text.py:279
+#, python-brace-format
+msgid ""
+"Conversion cancelled after processing {completed} of {total} files to "
+"{extension}"
+msgstr ""
+"Převod zrušen po zpracování {completed} z {total} souborů na {extension}"
+
+#: src/simplyconvertfile/utils/text.py:281
+msgid "Conversion Cancelled"
+msgstr "Převod zrušen"
+
+#: src/simplyconvertfile/utils/text.py:283
+#, python-brace-format
+msgid "File conversion to {extension} was cancelled"
+msgstr "Převod souboru na {extension} byl zrušen"
+
+#: src/simplyconvertfile/utils/text.py:285
+msgid "Settings Error"
+msgstr "Chyba nastavení"
+
+#: src/simplyconvertfile/utils/text.py:287
+#, fuzzy
+msgid ""
+"User settings file is corrupted\n"
+"(~/.config/simplyconvertfile/user_settings.json)\n"
+"Using default settings instead."
+msgstr ""
+"Soubor uživatelských nastavení je poškozen\n"
+"(~/.config/simplyconvertfile/user_settings.json)\n"
+"Místo toho se používají výchozí nastavení."
+
+#: src/simplyconvertfile/utils/text.py:291
+msgid "Missing Conversion Tool"
+msgstr "Chybějící nástroj pro převod"
+
+#: src/simplyconvertfile/utils/text.py:297
+msgid "Dangerous Command Blocked"
+msgstr "Nebezpečný příkaz zablokován"
+
+#: src/simplyconvertfile/utils/text.py:299
+#, python-brace-format
+msgid ""
+"A potentially dangerous command was blocked.\n"
+"\n"
+"Reason: {reason}\n"
+"\n"
+"Command: {command}\n"
+"\n"
+"If you need to allow dangerous commands, enable the "
+"'allow_dangerous_commands' option in your user settings."
+msgstr ""
+"Potenciálně nebezpečný příkaz byl zablokován.\n"
+"\n"
+"Důvod: {reason}\n"
+"\n"
+"Příkaz: {command}\n"
+"\n"
+"Pokud potřebujete povolit nebezpečné příkazy, povolte možnost "
+"'allow_dangerous_commands' v uživatelském nastavení."
+
+#: src/simplyconvertfile/utils/text.py:305
+msgid "Potentially Dangerous Command"
+msgstr "Potenciálně nebezpečný příkaz"
+
+#: src/simplyconvertfile/utils/text.py:307
+#, python-brace-format
+msgid ""
+"The following command contains a potentially dangerous operation and "
+"requires your confirmation to proceed.\n"
+"\n"
+"Reason: {reason}\n"
+"\n"
+"Command:\n"
+"{command}"
+msgstr ""
+"Následující příkaz obsahuje potenciálně nebezpečnou operaci a vyžaduje vaše "
+"potvrzení pro pokračování.\n"
+"\n"
+"Důvod: {reason}\n"
+"\n"
+"Příkaz:\n"
+"{command}"
+
+#: src/simplyconvertfile/utils/text.py:312
+msgid "Continue Anyway"
+msgstr "Přesto pokračovat"
+
+#: src/simplyconvertfile/utils/text.py:315
+msgid "privilege escalation"
+msgstr "eskalace oprávnění"
+
+#: src/simplyconvertfile/utils/text.py:316
+msgid "file deletion"
+msgstr "odstranění souboru"
+
+#: src/simplyconvertfile/utils/text.py:317
+msgid "directory deletion"
+msgstr "odstranění adresáře"
+
+#: src/simplyconvertfile/utils/text.py:318
+msgid "file destruction"
+msgstr "zničení souboru"
+
+#: src/simplyconvertfile/utils/text.py:319
+msgid "file truncation"
+msgstr "zkrácení souboru"
+
+#: src/simplyconvertfile/utils/text.py:320
+msgid "raw disk operation"
+msgstr "operace raw disku"
+
+#: src/simplyconvertfile/utils/text.py:321
+msgid "filesystem creation"
+msgstr "vytvoření souborového systému"
+
+#: src/simplyconvertfile/utils/text.py:322
+msgid "disk partitioning"
+msgstr "partitionování disku"
+
+#: src/simplyconvertfile/utils/text.py:323
+msgid "filesystem signature removal"
+msgstr "odstranění podpisu souborového systému"
+
+#: src/simplyconvertfile/utils/text.py:324
+msgid "block device discard"
+msgstr "zahodit blokové zařízení"
+
+#: src/simplyconvertfile/utils/text.py:325
+msgid "system shutdown"
+msgstr "vypnutí systému"
+
+#: src/simplyconvertfile/utils/text.py:326
+msgid "system reboot"
+msgstr "restart systému"
+
+#: src/simplyconvertfile/utils/text.py:327
+msgid "system power off"
+msgstr "vypnutí systému"
+
+#: src/simplyconvertfile/utils/text.py:328
+msgid "system halt"
+msgstr "zastavení systému"
+
+#: src/simplyconvertfile/utils/text.py:329
+msgid "system init control"
+msgstr "kontrola init systému"
+
+#: src/simplyconvertfile/utils/text.py:330
+msgid "system service control"
+msgstr "kontrola služeb systému"
+
+#: src/simplyconvertfile/utils/text.py:331
+msgid "network access"
+msgstr "přístup k síti"
+
+#: src/simplyconvertfile/utils/text.py:332
+msgid "network download"
+msgstr "stažení ze sítě"
+
+#: src/simplyconvertfile/utils/text.py:333
+msgid "network connection"
+msgstr "síťové připojení"
+
+#: src/simplyconvertfile/utils/text.py:334
+msgid "remote shell access"
+msgstr "vzdálený přístup shell"
+
+#: src/simplyconvertfile/utils/text.py:335
+msgid "remote file copy"
+msgstr "kopírování vzdáleného souboru"
+
+#: src/simplyconvertfile/utils/text.py:336
+msgid "remote file sync"
+msgstr "synchronizace vzdáleného souboru"
+
+#: src/simplyconvertfile/utils/text.py:337
+msgid "file transfer"
+msgstr "přenos souboru"
+
+#: src/simplyconvertfile/utils/text.py:338
+msgid "permission change"
+msgstr "změna oprávnění"
+
+#: src/simplyconvertfile/utils/text.py:339
+msgid "ownership change"
+msgstr "změna vlastnictví"
+
+#: src/simplyconvertfile/utils/text.py:340
+msgid "group ownership change"
+msgstr "změna vlastnictví skupiny"
+
+#: src/simplyconvertfile/utils/text.py:341
+msgid "shell code execution"
+msgstr "spuštění kódu shell"
+
+#: src/simplyconvertfile/utils/text.py:342
+msgid "dangerous operation"
+msgstr "nebezpečná operace"
+
+#: src/simplyconvertfile/utils/text.py:348
+msgid ""
+"Universal file format converter for Linux. Supports images, videos, audio, "
+"documents, and archives."
+msgstr ""
+"Univerzální převodník formátů souborů pro Linux. Podporuje obrázky, videa, "
+"zvuk, dokumenty a archivy."
+
+#: src/simplyconvertfile/utils/text.py:351
+msgid "File paths to convert (optional; opens picker if none)"
+msgstr ""
+"Cesty k souborům k převodu (volitelné; pokud nejsou zadány, otevře se výběr)"
+
+#: src/simplyconvertfile/utils/text.py:353
+#, python-brace-format
+msgid "For more info, visit {url}"
+msgstr "Pro více informací navštivte {url}"
+
+#~ msgid "Converts a file to a different format"
+#~ msgstr "Převede soubor do jiného formátu"
+
+#~ msgid "Convert File"
+#~ msgstr "Převést soubor"

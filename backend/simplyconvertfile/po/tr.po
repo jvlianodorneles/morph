@@ -1,0 +1,706 @@
+# SIMPLY CONVERT FILE
+# This file is put in the public domain.
+# ThigSchuch, 2026
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: simplyconvertfile 2.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/ThigSchuch/SimplyConvertFile/"
+"issues\n"
+"POT-Creation-Date: 2026-02-07 17:51+0000\n"
+"PO-Revision-Date: 2026-03-11 19:11+0000\n"
+"Last-Translator: AI\n"
+"Language-Team: Serkan ÖNDER <serkanonder@outlook.com>, AI\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/simplyconvertfile/utils/text.py:118
+msgid "File Converter"
+msgstr "Dosya Dönüştürücü"
+
+#: src/simplyconvertfile/utils/text.py:119
+msgid "Choose output format:"
+msgstr "Çıktı formatını seçin:"
+
+#: src/simplyconvertfile/utils/text.py:120
+#, python-brace-format
+msgid ""
+"Converting\n"
+"{file} to {extension}"
+msgstr ""
+"Dönüştürülüyor\n"
+"{file} {extension} olarak"
+
+#: src/simplyconvertfile/utils/text.py:121
+msgid "Copy Error"
+msgstr "Hatayı Kopyala"
+
+#: src/simplyconvertfile/utils/text.py:122
+msgid "Copy Command"
+msgstr "Komutu Kopyala"
+
+#: src/simplyconvertfile/utils/text.py:123
+msgid "Report Error"
+msgstr "Hatayı Bildir"
+
+#: src/simplyconvertfile/utils/text.py:124
+msgid "OK"
+msgstr "Tamam"
+
+#: src/simplyconvertfile/utils/text.py:125
+msgid "Cancel"
+msgstr "İptal"
+
+#: src/simplyconvertfile/utils/text.py:126
+msgid "Cancelling..."
+msgstr "İptal ediliyor..."
+
+#: src/simplyconvertfile/utils/text.py:127
+msgid "Start"
+msgstr "Başlat"
+
+#: src/simplyconvertfile/utils/text.py:128
+msgid "Error details copied to clipboard"
+msgstr "Hata ayrıntıları panoya kopyalandı"
+
+#: src/simplyconvertfile/utils/text.py:129
+msgid "Install command copied to clipboard"
+msgstr "Yükleme komutu panoya kopyalandı"
+
+#: src/simplyconvertfile/utils/text.py:131
+#, python-brace-format
+msgid ""
+"No installation instructions available. Please install '{dependency}' "
+"manually."
+msgstr ""
+"Yükleme talimatı mevcut değil. Lütfen '{dependency}' öğesini manuel olarak "
+"yükleyin."
+
+#: src/simplyconvertfile/utils/text.py:133
+msgid "multiple files selected"
+msgstr "birden fazla dosya seçildi"
+
+#: src/simplyconvertfile/utils/text.py:138
+msgid "Select one or more files to convert."
+msgstr "Dönüştürmek için bir veya daha fazla dosya seçin."
+
+#: src/simplyconvertfile/utils/text.py:140
+#, python-brace-format
+msgid ""
+"File not found:\n"
+"{path}\n"
+"\n"
+"Check if the file exists."
+msgstr ""
+"Dosya bulunamadı:\n"
+"{path}\n"
+"\n"
+"Dosyanın mevcut olup olmadığını kontrol edin."
+
+#: src/simplyconvertfile/utils/text.py:143
+#, python-brace-format
+msgid ""
+"Invalid file:\n"
+"{path}\n"
+"\n"
+"Select a file, not a folder."
+msgstr ""
+"Geçersiz dosya:\n"
+"{path}\n"
+"\n"
+"Bir klasör değil, bir dosya seçin."
+
+#: src/simplyconvertfile/utils/text.py:146
+#, python-brace-format
+msgid ""
+"No file extension:\n"
+"{path}\n"
+"\n"
+"Add an extension (e.g., .jpg, .mp4, .pdf) to determine the format."
+msgstr ""
+"Dosya uzantısı yok:\n"
+"{path}\n"
+"\n"
+"Formatı belirlemek için bir uzantı ekleyin (örneğin, .jpg, .mp4, .pdf)."
+
+#: src/simplyconvertfile/utils/text.py:149
+#, python-brace-format
+msgid "Unsupported file format: {extension}"
+msgstr "Desteklenmeyen dosya formatı: {extension}"
+
+#: src/simplyconvertfile/utils/text.py:151
+#, python-brace-format
+msgid ""
+"The file '{filename}' has an unsupported format ({extension}).\n"
+"\n"
+"This format is not recognized by the converter or the required tools are not "
+"installed on your system."
+msgstr ""
+"'{filename}' dosyası desteklenmeyen bir formata sahip ({extension}).\n"
+"\n"
+"Bu format dönüştürücü tarafından tanınmıyor veya gerekli araçlar "
+"sisteminizde yüklü değil."
+
+#: src/simplyconvertfile/utils/text.py:156
+#, python-brace-format
+msgid ""
+"Found {error_count} validation error(s) in the selected files:\n"
+"\n"
+"{errors}\n"
+"\n"
+"The process will continue with valid files only."
+msgstr ""
+"Seçilen dosyalarda {error_count} doğrulama hatası bulundu:\n"
+"\n"
+"{errors}\n"
+"\n"
+"İşlem yalnızca geçerli dosyalarda devam edecektir."
+
+#: src/simplyconvertfile/utils/text.py:164
+msgid "Conversion failed."
+msgstr "Dönüştürme başarısız oldu."
+
+#: src/simplyconvertfile/utils/text.py:165
+msgid "No converter found for this format"
+msgstr "Bu format için dönüştürücü bulunamadı"
+
+#: src/simplyconvertfile/utils/text.py:167
+#, python-brace-format
+msgid ""
+"No converters available for {extension} files.\n"
+"\n"
+"File: {filename}\n"
+"\n"
+"Possible causes:\n"
+"• Missing rules\n"
+"• Missing required tools\n"
+"• Unsupported format\n"
+"• Installation issue\n"
+"\n"
+"Check system dependencies."
+msgstr ""
+"{extension} dosyaları için dönüştürücü mevcut değil.\n"
+"\n"
+"Dosya: {filename}\n"
+"\n"
+"Olası nedenler:\n"
+"• Eksik kurallar\n"
+"• Eksik gerekli araçlar\n"
+"• Desteklenmeyen format\n"
+"• Yükleme sorunu\n"
+"\n"
+"Sistem bağımlılıklarını kontrol edin."
+
+#: src/simplyconvertfile/utils/text.py:177
+#, python-brace-format
+msgid ""
+"Failed to create converter for {source} → {target}\n"
+"\n"
+"File: {file}\n"
+"\n"
+"This could indicate:\n"
+"• Missing conversion tools\n"
+"• Incompatible format combination\n"
+"• System configuration issue"
+msgstr ""
+"{source} → {target} için dönüştürücü oluşturulamadı\n"
+"\n"
+"Dosya: {file}\n"
+"\n"
+"Bu şunları gösterebilir:\n"
+"• Eksik dönüştürme araçları\n"
+"• Uyumsuz format kombinasyonu\n"
+"• Sistem yapılandırma sorunu"
+
+#: src/simplyconvertfile/utils/text.py:185
+#, python-brace-format
+msgid ""
+"Converting {current} of {total} files to {extension}\n"
+"{file}"
+msgstr ""
+"{total} dosyadan {current} tanesi {extension} olarak dönüştürülüyor\n"
+"{file}"
+
+#: src/simplyconvertfile/utils/text.py:188
+#, python-brace-format
+msgid ""
+"Failed to create or access output directory.\n"
+"\n"
+"Error: {error}"
+msgstr ""
+"Çıktı dizini oluşturulamadı veya erişilemedi.\n"
+"\n"
+"Hata: {error}"
+
+#: src/simplyconvertfile/utils/text.py:190
+#, python-brace-format
+msgid "Conversion failed: {error}"
+msgstr "Dönüştürme başarısız oldu: {error}"
+
+#: src/simplyconvertfile/utils/text.py:191
+msgid "Conversion cancelled by user"
+msgstr "Dönüştürme kullanıcı tarafından iptal edildi"
+
+#: src/simplyconvertfile/utils/text.py:193
+msgid ""
+"Conversion failed - check if required tools are installed (e.g., ffmpeg, "
+"convert, 7z, rar, etc.) and the file format is supported"
+msgstr ""
+"Dönüştürme başarısız oldu - gerekli araçların yüklü olup olmadığını kontrol "
+"edin (örneğin, ffmpeg, convert, 7z, rar vb.) ve dosya formatının desteklenip "
+"desteklenmediğini"
+
+#: src/simplyconvertfile/utils/text.py:196
+#, python-brace-format
+msgid "Template error: {error}"
+msgstr "Şablon hatası: {error}"
+
+#: src/simplyconvertfile/utils/text.py:201
+#: src/simplyconvertfile/utils/text.py:292
+#, python-brace-format
+msgid "Required tool '{tool}' is not installed."
+msgstr "Gerekli araç '{tool}' yüklü değil."
+
+#: src/simplyconvertfile/utils/text.py:203
+#, python-brace-format
+msgid "The conversion tool '{tool}' is required but not found on your system."
+msgstr "Dönüştürme aracı '{tool}' gerekli ancak sisteminizde bulunamadı."
+
+#: src/simplyconvertfile/utils/text.py:206
+#, python-brace-format
+msgid ""
+"Missing Tool: {tool}\n"
+"\n"
+"Install Command:\n"
+"{install_command}\n"
+"\n"
+"Instructions:\n"
+"Copy the install command above and run it in your terminal. If the command "
+"does not work, please refer to your distribution's package manager or the "
+"tool's official installation instructions."
+msgstr ""
+"Eksik Araç: {tool}\n"
+"\n"
+"Yükleme Komutu:\n"
+"{install_command}\n"
+"\n"
+"Talimatlar:\n"
+"Yukarıdaki yükleme komutunu kopyalayın ve terminalinizde çalıştırın. Komut "
+"çalışmazsa, dağıtımınızın paket yöneticisine veya aracın resmi yükleme "
+"talimatlarına başvurun."
+
+#: src/simplyconvertfile/utils/text.py:213
+msgid "An unexpected error occurred during conversion."
+msgstr "Dönüştürme sırasında beklenmeyen bir hata oluştu."
+
+#: src/simplyconvertfile/utils/text.py:215
+msgid ""
+"Required tool not found. Please make sure all required conversion tools are "
+"installed (e.g., ffmpeg, convert, etc.)"
+msgstr ""
+"Gerekli araç bulunamadı. Lütfen tüm gerekli dönüştürme araçlarının yüklü "
+"olduğundan emin olun (örneğin, ffmpeg, convert vb.)"
+
+#: src/simplyconvertfile/utils/text.py:219
+#, python-brace-format
+msgid ""
+"Shell command execution failed.\n"
+"\n"
+"Error: {error}\n"
+"\n"
+"Command: {command}"
+msgstr ""
+"Kabuk komutu yürütme başarısız oldu.\n"
+"\n"
+"Hata: {error}\n"
+"\n"
+"Komut: {command}"
+
+#: src/simplyconvertfile/utils/text.py:222
+#, python-brace-format
+msgid ""
+"Chained command execution failed.\n"
+"\n"
+"Error: {error}\n"
+"\n"
+"Command: {command}"
+msgstr ""
+"Zincirleme komut yürütme başarısız oldu.\n"
+"\n"
+"Hata: {error}\n"
+"\n"
+"Komut: {command}"
+
+#: src/simplyconvertfile/utils/text.py:224
+#, python-brace-format
+msgid ""
+"Failed conversions:\n"
+"\n"
+"{errors}"
+msgstr ""
+"Başarısız dönüştürmeler:\n"
+"\n"
+"{errors}"
+
+#: src/simplyconvertfile/utils/text.py:225
+msgid "Failed to create temporary directory"
+msgstr "Geçici dizin oluşturulamadı"
+
+#: src/simplyconvertfile/utils/text.py:226
+msgid "Temporary directory not available"
+msgstr "Geçici dizin mevcut değil"
+
+#: src/simplyconvertfile/utils/text.py:227
+msgid "Temporary directory does not exist"
+msgstr "Geçici dizin mevcut değil"
+
+#: src/simplyconvertfile/utils/text.py:228
+msgid "No archive template available in settings"
+msgstr "Ayarlarda arşiv şablonu mevcut değil"
+
+#: src/simplyconvertfile/utils/text.py:229
+msgid "No contents found in extracted archive"
+msgstr "Çıkarılan arşivde içerik bulunamadı"
+
+#: src/simplyconvertfile/utils/text.py:234
+msgid "Operation failed"
+msgstr "İşlem başarısız oldu"
+
+#: src/simplyconvertfile/utils/text.py:235
+msgid "Operation cancelled by user"
+msgstr "İşlem kullanıcı tarafından iptal edildi"
+
+#: src/simplyconvertfile/utils/text.py:237
+#, python-brace-format
+msgid ""
+"Step {step}/{total} failed.\n"
+"\n"
+"Error: {error}\n"
+"\n"
+"Command: {command}"
+msgstr ""
+"{step}/{total} adım başarısız oldu.\n"
+"\n"
+"Hata: {error}\n"
+"\n"
+"Komut: {command}"
+
+#: src/simplyconvertfile/utils/text.py:240
+#, python-brace-format
+msgid ""
+"File validation failed: {file}\n"
+"\n"
+"The previous conversion step likely failed.\n"
+"\n"
+"Previous step output:\n"
+"{previous_error}"
+msgstr ""
+
+#: src/simplyconvertfile/utils/text.py:244
+msgid "Batch conversion cancelled"
+msgstr "Toplu dönüştürme iptal edildi"
+
+#: src/simplyconvertfile/utils/text.py:246
+#, python-brace-format
+msgid "Batch conversion completed with {error_count} error(s)."
+msgstr "Toplu dönüştürme {error_count} hata ile tamamlandı."
+
+#: src/simplyconvertfile/utils/text.py:248
+msgid "No command to execute"
+msgstr "Yürütülecek komut yok"
+
+#: src/simplyconvertfile/utils/text.py:253
+msgid "Conversion Complete"
+msgstr "Dönüştürme Tamamlandı"
+
+#: src/simplyconvertfile/utils/text.py:254
+#, python-brace-format
+msgid "Successfully converted {filename} to {extension}"
+msgstr "{filename} başarıyla {extension} olarak dönüştürüldü"
+
+#: src/simplyconvertfile/utils/text.py:255
+msgid "Conversion Failed"
+msgstr "Dönüştürme Başarısız"
+
+#: src/simplyconvertfile/utils/text.py:256
+#, python-brace-format
+msgid "Failed to convert {filename} to {extension}"
+msgstr "{filename} {extension} olarak dönüştürülemedi"
+
+#: src/simplyconvertfile/utils/text.py:257
+msgid "Batch Conversion Complete"
+msgstr "Toplu Dönüştürme Tamamlandı"
+
+#: src/simplyconvertfile/utils/text.py:259
+#, python-brace-format
+msgid "Successfully converted {successful} of {total} files to {extension}"
+msgstr ""
+"{total} dosyadan {successful} tanesi başarıyla {extension} olarak "
+"dönüştürüldü"
+
+#: src/simplyconvertfile/utils/text.py:261
+msgid "Batch Conversion Failed"
+msgstr "Toplu Dönüştürme Başarısız"
+
+#: src/simplyconvertfile/utils/text.py:263
+#, python-brace-format
+msgid "Failed to convert {failed} of {total} files to {extension}"
+msgstr "{total} dosyadan {failed} tanesi {extension} olarak dönüştürülemedi"
+
+#: src/simplyconvertfile/utils/text.py:265
+msgid "Conversion Started"
+msgstr "Dönüştürme Başladı"
+
+#: src/simplyconvertfile/utils/text.py:267
+#, python-brace-format
+msgid "Conversion started for {filename} to {extension}"
+msgstr "{filename} için dönüştürme {extension} olarak başladı"
+
+#: src/simplyconvertfile/utils/text.py:269
+msgid "Batch Conversion Started"
+msgstr "Toplu Dönüştürme Başladı"
+
+#: src/simplyconvertfile/utils/text.py:271
+#, python-brace-format
+msgid "Batch conversion of {total} files to {extension} has started"
+msgstr "{total} dosyanın {extension} olarak toplu dönüştürmesi başladı"
+
+#: src/simplyconvertfile/utils/text.py:273
+msgid "Batch Step Conversion Started"
+msgstr "Toplu Adım Dönüştürmesi Başladı"
+
+#: src/simplyconvertfile/utils/text.py:275
+#, python-brace-format
+msgid "Converting {filename} to {extension}"
+msgstr "{filename} {extension} olarak dönüştürülüyor"
+
+#: src/simplyconvertfile/utils/text.py:277
+msgid "Batch Conversion Cancelled"
+msgstr "Toplu Dönüştürme İptal Edildi"
+
+#: src/simplyconvertfile/utils/text.py:279
+#, python-brace-format
+msgid ""
+"Conversion cancelled after processing {completed} of {total} files to "
+"{extension}"
+msgstr ""
+"{total} dosyadan {completed} tanesi işlendikten sonra dönüştürme {extension} "
+"olarak iptal edildi"
+
+#: src/simplyconvertfile/utils/text.py:281
+msgid "Conversion Cancelled"
+msgstr "Dönüştürme İptal Edildi"
+
+#: src/simplyconvertfile/utils/text.py:283
+#, python-brace-format
+msgid "File conversion to {extension} was cancelled"
+msgstr "{extension} olarak dosya dönüştürmesi iptal edildi"
+
+#: src/simplyconvertfile/utils/text.py:285
+msgid "Settings Error"
+msgstr "Ayarlar Hatası"
+
+#: src/simplyconvertfile/utils/text.py:287
+#, fuzzy
+msgid ""
+"User settings file is corrupted\n"
+"(~/.config/simplyconvertfile/user_settings.json)\n"
+"Using default settings instead."
+msgstr ""
+"Kullanıcı ayarları dosyası bozuk\n"
+"(~/.config/simplyconvertfile/user_settings.json)\n"
+"Bunun yerine varsayılan ayarlar kullanılıyor."
+
+#: src/simplyconvertfile/utils/text.py:291
+msgid "Missing Conversion Tool"
+msgstr "Eksik Dönüştürme Aracı"
+
+#: src/simplyconvertfile/utils/text.py:297
+msgid "Dangerous Command Blocked"
+msgstr "Tehlikeli komut engellendi"
+
+#: src/simplyconvertfile/utils/text.py:299
+#, python-brace-format
+msgid ""
+"A potentially dangerous command was blocked.\n"
+"\n"
+"Reason: {reason}\n"
+"\n"
+"Command: {command}\n"
+"\n"
+"If you need to allow dangerous commands, enable the "
+"'allow_dangerous_commands' option in your user settings."
+msgstr ""
+"Potansiyel olarak tehlikeli bir komut engellendi.\n"
+"\n"
+"Neden: {reason}\n"
+"\n"
+"Komut: {command}\n"
+"\n"
+"Tehlikeli komutlara izin vermeniz gerekiyorsa, kullanıcı ayarlarınızdaki "
+"'allow_dangerous_commands' seçeneğini etkinleştirin."
+
+#: src/simplyconvertfile/utils/text.py:305
+msgid "Potentially Dangerous Command"
+msgstr "Potansiyel olarak tehlikeli komut"
+
+#: src/simplyconvertfile/utils/text.py:307
+#, python-brace-format
+msgid ""
+"The following command contains a potentially dangerous operation and "
+"requires your confirmation to proceed.\n"
+"\n"
+"Reason: {reason}\n"
+"\n"
+"Command:\n"
+"{command}"
+msgstr ""
+"Aşağıdaki komut potansiyel olarak tehlikeli bir işlem içermektedir ve devam "
+"etmek için onayınızı gerektirmektedir.\n"
+"\n"
+"Neden: {reason}\n"
+"\n"
+"Komut:\n"
+"{command}"
+
+#: src/simplyconvertfile/utils/text.py:312
+msgid "Continue Anyway"
+msgstr "Yine de devam et"
+
+#: src/simplyconvertfile/utils/text.py:315
+msgid "privilege escalation"
+msgstr "ayrıcalık yükseltme"
+
+#: src/simplyconvertfile/utils/text.py:316
+msgid "file deletion"
+msgstr "dosya silme"
+
+#: src/simplyconvertfile/utils/text.py:317
+msgid "directory deletion"
+msgstr "dizin silme"
+
+#: src/simplyconvertfile/utils/text.py:318
+msgid "file destruction"
+msgstr "dosya yok etme"
+
+#: src/simplyconvertfile/utils/text.py:319
+msgid "file truncation"
+msgstr "dosya kesme"
+
+#: src/simplyconvertfile/utils/text.py:320
+msgid "raw disk operation"
+msgstr "ham disk işlemi"
+
+#: src/simplyconvertfile/utils/text.py:321
+msgid "filesystem creation"
+msgstr "dosya sistemi oluşturma"
+
+#: src/simplyconvertfile/utils/text.py:322
+msgid "disk partitioning"
+msgstr "disk bölümlendirme"
+
+#: src/simplyconvertfile/utils/text.py:323
+msgid "filesystem signature removal"
+msgstr "dosya sistemi imza kaldırma"
+
+#: src/simplyconvertfile/utils/text.py:324
+msgid "block device discard"
+msgstr "blok aygıt atma"
+
+#: src/simplyconvertfile/utils/text.py:325
+msgid "system shutdown"
+msgstr "sistem kapatma"
+
+#: src/simplyconvertfile/utils/text.py:326
+msgid "system reboot"
+msgstr "sistem yeniden başlatma"
+
+#: src/simplyconvertfile/utils/text.py:327
+msgid "system power off"
+msgstr "sistem güç kapatma"
+
+#: src/simplyconvertfile/utils/text.py:328
+msgid "system halt"
+msgstr "sistem durdurma"
+
+#: src/simplyconvertfile/utils/text.py:329
+msgid "system init control"
+msgstr "sistem init kontrolü"
+
+#: src/simplyconvertfile/utils/text.py:330
+msgid "system service control"
+msgstr "sistem servis kontrolü"
+
+#: src/simplyconvertfile/utils/text.py:331
+msgid "network access"
+msgstr "ağ erişimi"
+
+#: src/simplyconvertfile/utils/text.py:332
+msgid "network download"
+msgstr "ağ indirme"
+
+#: src/simplyconvertfile/utils/text.py:333
+msgid "network connection"
+msgstr "ağ bağlantısı"
+
+#: src/simplyconvertfile/utils/text.py:334
+msgid "remote shell access"
+msgstr "uzak kabuk erişimi"
+
+#: src/simplyconvertfile/utils/text.py:335
+msgid "remote file copy"
+msgstr "uzak dosya kopyalama"
+
+#: src/simplyconvertfile/utils/text.py:336
+msgid "remote file sync"
+msgstr "uzak dosya senkronizasyonu"
+
+#: src/simplyconvertfile/utils/text.py:337
+msgid "file transfer"
+msgstr "dosya aktarımı"
+
+#: src/simplyconvertfile/utils/text.py:338
+msgid "permission change"
+msgstr "izin değiştirme"
+
+#: src/simplyconvertfile/utils/text.py:339
+msgid "ownership change"
+msgstr "sahiplik değiştirme"
+
+#: src/simplyconvertfile/utils/text.py:340
+msgid "group ownership change"
+msgstr "grup sahipliği değiştirme"
+
+#: src/simplyconvertfile/utils/text.py:341
+msgid "shell code execution"
+msgstr "kabuk kodu çalıştırma"
+
+#: src/simplyconvertfile/utils/text.py:342
+msgid "dangerous operation"
+msgstr "tehlikeli işlem"
+
+#: src/simplyconvertfile/utils/text.py:348
+msgid ""
+"Universal file format converter for Linux. Supports images, videos, audio, "
+"documents, and archives."
+msgstr ""
+"Linux için evrensel dosya formatı dönüştürücü. Görüntüleri, videoları, sesi, "
+"belgeleri ve arşivleri destekler."
+
+#: src/simplyconvertfile/utils/text.py:351
+msgid "File paths to convert (optional; opens picker if none)"
+msgstr ""
+"Dönüştürülecek dosya yolları (isteğe bağlı; yoksa seçim penceresi açılır)"
+
+#: src/simplyconvertfile/utils/text.py:353
+#, python-brace-format
+msgid "For more info, visit {url}"
+msgstr "Daha fazla bilgi için {url} adresini ziyaret edin"
+
+#~ msgid "Converts a file to a different format"
+#~ msgstr "Bir dosyayı farklı bir formata dönüştürür"
+
+#~ msgid "Convert File"
+#~ msgstr "Dosyayı Dönüştür"

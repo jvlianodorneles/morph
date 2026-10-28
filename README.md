@@ -23,13 +23,14 @@ Convert files instantly across 80+ supported formats without opening traditional
 ## Dependencies
 
 Morph relies on the following runtime tools and libraries:
-- **Python 3** (and standard library modules)
-- [**SimplyConvertFile**](https://github.com/ThigSchuch/SimplyConvertFile) (file format conversion backend)
+- **Python 3** and **python-gobject**
+- **SimplyConvertFile Backend** (vendored directly within the repository under `backend/simplyconvertfile` at an immutable pinned commit for reproducible, secure, and self-contained execution)
 - **wl-clipboard** (`wl-copy` / `wl-paste` for clipboard detection)
 - **wtype** (Wayland keystroke emulation to retrieve selected files from active file managers)
 - **jq** (used by setup scripts for reading settings)
 - **libnotify** (`notify-send` for desktop conversion notifications)
 - **Hyprland** (`hyprctl` for dynamic keybinding evaluation and window state)
+- System CLI converters for target formats (e.g. `ffmpeg`, `imagemagick`, `libreoffice`)
 
 ---
 
@@ -40,16 +41,10 @@ Morph relies on the following runtime tools and libraries:
 Install system dependencies via `pacman`:
 
 ```bash
-sudo pacman -S --needed python wl-clipboard wtype jq libnotify
+sudo pacman -S --needed python python-gobject wl-clipboard wtype jq libnotify
 ```
 
-Install the conversion backend [**SimplyConvertFile**](https://github.com/ThigSchuch/SimplyConvertFile):
-
-```bash
-git clone https://github.com/ThigSchuch/SimplyConvertFile.git
-cd SimplyConvertFile
-pip install .
-```
+The conversion backend is bundled directly within the plugin, so no separate `git clone` or unpinned `pip install` step is required.
 
 ### 2. Install Plugin
 
@@ -148,10 +143,11 @@ rm -f ~/.config/omarchy/convert-orb.json
 ## Acknowledgements
 
 - Radial wheel UI structure and geometry inspired by [**Orb** (`io.github.tcballard.orb`)](https://github.com/tcballard/omarchy-plugin-orb) by Tom Ballard.
-- Format conversion powered by [**SimplyConvertFile**](https://github.com/ThigSchuch/SimplyConvertFile).
+- Format conversion engine powered by [**SimplyConvertFile**](https://github.com/ThigSchuch/SimplyConvertFile) (vendored in `backend/`, see `backend/NOTICE`).
 
 ---
 
 ## License
 
-MIT
+- Morph plugin code and UI components: MIT License (see [LICENSE](LICENSE)).
+- Vendored SimplyConvertFile backend: GNU General Public License v3.0 or later (GPL-3.0-or-later, see [backend/NOTICE](backend/NOTICE)).

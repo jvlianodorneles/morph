@@ -6,10 +6,12 @@ import os
 import json
 from pathlib import Path
 
-# Add local SimplyConvertFile repository if not already in path
-scf_path = Path("/home/dorneles/Projects/universal/SimplyConvertFile/src")
-if scf_path.exists() and str(scf_path) not in sys.path:
-    sys.path.insert(0, str(scf_path))
+sys.dont_write_bytecode = True
+
+# Add vendored SimplyConvertFile backend directory to sys.path
+backend_path = Path(__file__).resolve().parent.parent / "backend"
+if backend_path.exists() and str(backend_path) not in sys.path:
+    sys.path.insert(0, str(backend_path))
 
 try:
     from simplyconvertfile.config import format_config

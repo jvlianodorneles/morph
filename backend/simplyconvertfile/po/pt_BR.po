@@ -1,0 +1,708 @@
+# SIMPLY CONVERT FILE
+# This file is put in the public domain.
+# ThigSchuch, 2026
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: simplyconvertfile 2.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/ThigSchuch/SimplyConvertFile/"
+"issues\n"
+"POT-Creation-Date: 2026-02-07 17:51+0000\n"
+"PO-Revision-Date: 2026-03-11 19:11+0000\n"
+"Last-Translator: AI\n"
+"Language-Team: ThigSchuch <thigschuch@gmail.com>, AI\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/simplyconvertfile/utils/text.py:118
+msgid "File Converter"
+msgstr "Conversor de Arquivos"
+
+#: src/simplyconvertfile/utils/text.py:119
+msgid "Choose output format:"
+msgstr "Escolha o formato de saída:"
+
+#: src/simplyconvertfile/utils/text.py:120
+#, python-brace-format
+msgid ""
+"Converting\n"
+"{file} to {extension}"
+msgstr ""
+"Convertendo\n"
+"{file} para {extension}"
+
+#: src/simplyconvertfile/utils/text.py:121
+msgid "Copy Error"
+msgstr "Copiar Erro"
+
+#: src/simplyconvertfile/utils/text.py:122
+msgid "Copy Command"
+msgstr "Copiar Comando"
+
+#: src/simplyconvertfile/utils/text.py:123
+msgid "Report Error"
+msgstr "Relatar Erro"
+
+#: src/simplyconvertfile/utils/text.py:124
+msgid "OK"
+msgstr "OK"
+
+#: src/simplyconvertfile/utils/text.py:125
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: src/simplyconvertfile/utils/text.py:126
+msgid "Cancelling..."
+msgstr "Cancelando..."
+
+#: src/simplyconvertfile/utils/text.py:127
+msgid "Start"
+msgstr "Iniciar"
+
+#: src/simplyconvertfile/utils/text.py:128
+msgid "Error details copied to clipboard"
+msgstr "Detalhes do erro copiados para a área de transferência"
+
+#: src/simplyconvertfile/utils/text.py:129
+msgid "Install command copied to clipboard"
+msgstr "Comando de instalação copiado para a área de transferência"
+
+#: src/simplyconvertfile/utils/text.py:131
+#, python-brace-format
+msgid ""
+"No installation instructions available. Please install '{dependency}' "
+"manually."
+msgstr ""
+"Nenhuma instrução de instalação disponível. Por favor, instale "
+"'{dependency}' manualmente."
+
+#: src/simplyconvertfile/utils/text.py:133
+msgid "multiple files selected"
+msgstr "múltiplos arquivos selecionados"
+
+#: src/simplyconvertfile/utils/text.py:138
+msgid "Select one or more files to convert."
+msgstr "Selecione um ou mais arquivos para converter."
+
+#: src/simplyconvertfile/utils/text.py:140
+#, python-brace-format
+msgid ""
+"File not found:\n"
+"{path}\n"
+"\n"
+"Check if the file exists."
+msgstr ""
+"Arquivo não encontrado:\n"
+"{path}\n"
+"\n"
+"Verifique se o arquivo existe."
+
+#: src/simplyconvertfile/utils/text.py:143
+#, python-brace-format
+msgid ""
+"Invalid file:\n"
+"{path}\n"
+"\n"
+"Select a file, not a folder."
+msgstr ""
+"Arquivo inválido:\n"
+"{path}\n"
+"\n"
+"Selecione um arquivo, não uma pasta."
+
+#: src/simplyconvertfile/utils/text.py:146
+#, python-brace-format
+msgid ""
+"No file extension:\n"
+"{path}\n"
+"\n"
+"Add an extension (e.g., .jpg, .mp4, .pdf) to determine the format."
+msgstr ""
+"Nenhuma extensão de arquivo:\n"
+"{path}\n"
+"\n"
+"Adicione uma extensão (ex.: .jpg, .mp4, .pdf) para determinar o formato."
+
+#: src/simplyconvertfile/utils/text.py:149
+#, python-brace-format
+msgid "Unsupported file format: {extension}"
+msgstr "Formato de arquivo não suportado: {extension}"
+
+#: src/simplyconvertfile/utils/text.py:151
+#, python-brace-format
+msgid ""
+"The file '{filename}' has an unsupported format ({extension}).\n"
+"\n"
+"This format is not recognized by the converter or the required tools are not "
+"installed on your system."
+msgstr ""
+"O arquivo '{filename}' tem um formato não suportado ({extension}).\n"
+"\n"
+"Este formato não é reconhecido pelo conversor ou as ferramentas necessárias "
+"não estão instaladas no seu sistema."
+
+#: src/simplyconvertfile/utils/text.py:156
+#, python-brace-format
+msgid ""
+"Found {error_count} validation error(s) in the selected files:\n"
+"\n"
+"{errors}\n"
+"\n"
+"The process will continue with valid files only."
+msgstr ""
+"Encontrado(s) {error_count} erro(s) de validação nos arquivos selecionados:\n"
+"\n"
+"{errors}\n"
+"\n"
+"O processo continuará apenas com arquivos válidos."
+
+#: src/simplyconvertfile/utils/text.py:164
+msgid "Conversion failed."
+msgstr "Conversão falhou."
+
+#: src/simplyconvertfile/utils/text.py:165
+msgid "No converter found for this format"
+msgstr "Nenhum conversor encontrado para este formato"
+
+#: src/simplyconvertfile/utils/text.py:167
+#, python-brace-format
+msgid ""
+"No converters available for {extension} files.\n"
+"\n"
+"File: {filename}\n"
+"\n"
+"Possible causes:\n"
+"• Missing rules\n"
+"• Missing required tools\n"
+"• Unsupported format\n"
+"• Installation issue\n"
+"\n"
+"Check system dependencies."
+msgstr ""
+"Nenhum conversor disponível para arquivos {extension}.\n"
+"\n"
+"Arquivo: {filename}\n"
+"\n"
+"Possíveis causas:\n"
+"• Regras ausentes\n"
+"• Ferramentas necessárias ausentes\n"
+"• Formato não suportado\n"
+"• Problema de instalação\n"
+"\n"
+"Verifique as dependências do sistema."
+
+#: src/simplyconvertfile/utils/text.py:177
+#, python-brace-format
+msgid ""
+"Failed to create converter for {source} → {target}\n"
+"\n"
+"File: {file}\n"
+"\n"
+"This could indicate:\n"
+"• Missing conversion tools\n"
+"• Incompatible format combination\n"
+"• System configuration issue"
+msgstr ""
+"Falha ao criar conversor para {source} → {target}\n"
+"\n"
+"Arquivo: {file}\n"
+"\n"
+"Isso pode indicar:\n"
+"• Ferramentas de conversão ausentes\n"
+"• Combinação de formatos incompatível\n"
+"• Problema de configuração do sistema"
+
+#: src/simplyconvertfile/utils/text.py:185
+#, python-brace-format
+msgid ""
+"Converting {current} of {total} files to {extension}\n"
+"{file}"
+msgstr ""
+"Convertendo {current} de {total} arquivos para {extension}\n"
+"{file}"
+
+#: src/simplyconvertfile/utils/text.py:188
+#, python-brace-format
+msgid ""
+"Failed to create or access output directory.\n"
+"\n"
+"Error: {error}"
+msgstr ""
+"Falha ao criar ou acessar o diretório de saída.\n"
+"\n"
+"Erro: {error}"
+
+#: src/simplyconvertfile/utils/text.py:190
+#, python-brace-format
+msgid "Conversion failed: {error}"
+msgstr "Conversão falhou: {error}"
+
+#: src/simplyconvertfile/utils/text.py:191
+msgid "Conversion cancelled by user"
+msgstr "Conversão cancelada pelo usuário"
+
+#: src/simplyconvertfile/utils/text.py:193
+msgid ""
+"Conversion failed - check if required tools are installed (e.g., ffmpeg, "
+"convert, 7z, rar, etc.) and the file format is supported"
+msgstr ""
+"Conversão falhou - verifique se as ferramentas necessárias estão instaladas "
+"(ex.: ffmpeg, convert, 7z, rar, etc.) e se o formato do arquivo é suportado"
+
+#: src/simplyconvertfile/utils/text.py:196
+#, python-brace-format
+msgid "Template error: {error}"
+msgstr "Erro de modelo: {error}"
+
+#: src/simplyconvertfile/utils/text.py:201
+#: src/simplyconvertfile/utils/text.py:292
+#, python-brace-format
+msgid "Required tool '{tool}' is not installed."
+msgstr "A ferramenta necessária '{tool}' não está instalada."
+
+#: src/simplyconvertfile/utils/text.py:203
+#, python-brace-format
+msgid "The conversion tool '{tool}' is required but not found on your system."
+msgstr ""
+"A ferramenta de conversão '{tool}' é necessária mas não foi encontrada no "
+"seu sistema."
+
+#: src/simplyconvertfile/utils/text.py:206
+#, python-brace-format
+msgid ""
+"Missing Tool: {tool}\n"
+"\n"
+"Install Command:\n"
+"{install_command}\n"
+"\n"
+"Instructions:\n"
+"Copy the install command above and run it in your terminal. If the command "
+"does not work, please refer to your distribution's package manager or the "
+"tool's official installation instructions."
+msgstr ""
+"Ferramenta Ausente: {tool}\n"
+"\n"
+"Comando de Instalação:\n"
+"{install_command}\n"
+"\n"
+"Instruções:\n"
+"Copie o comando de instalação acima e execute-o no seu terminal. Se o "
+"comando não funcionar, consulte o gerenciador de pacotes da sua distribuição "
+"ou as instruções oficiais de instalação da ferramenta."
+
+#: src/simplyconvertfile/utils/text.py:213
+msgid "An unexpected error occurred during conversion."
+msgstr "Ocorreu um erro inesperado durante a conversão."
+
+#: src/simplyconvertfile/utils/text.py:215
+msgid ""
+"Required tool not found. Please make sure all required conversion tools are "
+"installed (e.g., ffmpeg, convert, etc.)"
+msgstr ""
+"Ferramenta necessária não encontrada. Certifique-se de que todas as "
+"ferramentas de conversão necessárias estão instaladas (ex.: ffmpeg, convert, "
+"etc.)"
+
+#: src/simplyconvertfile/utils/text.py:219
+#, python-brace-format
+msgid ""
+"Shell command execution failed.\n"
+"\n"
+"Error: {error}\n"
+"\n"
+"Command: {command}"
+msgstr ""
+"Execução do comando shell falhou.\n"
+"\n"
+"Erro: {error}\n"
+"\n"
+"Comando: {command}"
+
+#: src/simplyconvertfile/utils/text.py:222
+#, python-brace-format
+msgid ""
+"Chained command execution failed.\n"
+"\n"
+"Error: {error}\n"
+"\n"
+"Command: {command}"
+msgstr ""
+"Execução do comando encadeado falhou.\n"
+"\n"
+"Erro: {error}\n"
+"\n"
+"Comando: {command}"
+
+#: src/simplyconvertfile/utils/text.py:224
+#, python-brace-format
+msgid ""
+"Failed conversions:\n"
+"\n"
+"{errors}"
+msgstr ""
+"Conversões falhadas:\n"
+"\n"
+"{errors}"
+
+#: src/simplyconvertfile/utils/text.py:225
+msgid "Failed to create temporary directory"
+msgstr "Falha ao criar diretório temporário"
+
+#: src/simplyconvertfile/utils/text.py:226
+msgid "Temporary directory not available"
+msgstr "Diretório temporário não disponível"
+
+#: src/simplyconvertfile/utils/text.py:227
+msgid "Temporary directory does not exist"
+msgstr "Diretório temporário não existe"
+
+#: src/simplyconvertfile/utils/text.py:228
+msgid "No archive template available in settings"
+msgstr "Nenhum modelo de arquivo disponível nas configurações"
+
+#: src/simplyconvertfile/utils/text.py:229
+msgid "No contents found in extracted archive"
+msgstr "Nenhum conteúdo encontrado no arquivo extraído"
+
+#: src/simplyconvertfile/utils/text.py:234
+msgid "Operation failed"
+msgstr "Operação falhou"
+
+#: src/simplyconvertfile/utils/text.py:235
+msgid "Operation cancelled by user"
+msgstr "Operação cancelada pelo usuário"
+
+#: src/simplyconvertfile/utils/text.py:237
+#, python-brace-format
+msgid ""
+"Step {step}/{total} failed.\n"
+"\n"
+"Error: {error}\n"
+"\n"
+"Command: {command}"
+msgstr ""
+"Etapa {step}/{total} falhou.\n"
+"\n"
+"Erro: {error}\n"
+"\n"
+"Comando: {command}"
+
+#: src/simplyconvertfile/utils/text.py:240
+#, python-brace-format
+msgid ""
+"File validation failed: {file}\n"
+"\n"
+"The previous conversion step likely failed.\n"
+"\n"
+"Previous step output:\n"
+"{previous_error}"
+msgstr ""
+
+#: src/simplyconvertfile/utils/text.py:244
+msgid "Batch conversion cancelled"
+msgstr "Conversão em lote cancelada"
+
+#: src/simplyconvertfile/utils/text.py:246
+#, python-brace-format
+msgid "Batch conversion completed with {error_count} error(s)."
+msgstr "Conversão em lote concluída com {error_count} erro(s)."
+
+#: src/simplyconvertfile/utils/text.py:248
+msgid "No command to execute"
+msgstr "Nenhum comando para executar"
+
+#: src/simplyconvertfile/utils/text.py:253
+msgid "Conversion Complete"
+msgstr "Conversão Concluída"
+
+#: src/simplyconvertfile/utils/text.py:254
+#, python-brace-format
+msgid "Successfully converted {filename} to {extension}"
+msgstr "Convertido com sucesso {filename} para {extension}"
+
+#: src/simplyconvertfile/utils/text.py:255
+msgid "Conversion Failed"
+msgstr "Conversão Falhou"
+
+#: src/simplyconvertfile/utils/text.py:256
+#, python-brace-format
+msgid "Failed to convert {filename} to {extension}"
+msgstr "Falha ao converter {filename} para {extension}"
+
+#: src/simplyconvertfile/utils/text.py:257
+msgid "Batch Conversion Complete"
+msgstr "Conversão em Lote Concluída"
+
+#: src/simplyconvertfile/utils/text.py:259
+#, python-brace-format
+msgid "Successfully converted {successful} of {total} files to {extension}"
+msgstr ""
+"Convertidos com sucesso {successful} de {total} arquivos para {extension}"
+
+#: src/simplyconvertfile/utils/text.py:261
+msgid "Batch Conversion Failed"
+msgstr "Conversão em Lote Falhou"
+
+#: src/simplyconvertfile/utils/text.py:263
+#, python-brace-format
+msgid "Failed to convert {failed} of {total} files to {extension}"
+msgstr "Falha ao converter {failed} de {total} arquivos para {extension}"
+
+#: src/simplyconvertfile/utils/text.py:265
+msgid "Conversion Started"
+msgstr "Conversão Iniciada"
+
+#: src/simplyconvertfile/utils/text.py:267
+#, python-brace-format
+msgid "Conversion started for {filename} to {extension}"
+msgstr "Conversão iniciada para {filename} para {extension}"
+
+#: src/simplyconvertfile/utils/text.py:269
+msgid "Batch Conversion Started"
+msgstr "Conversão em Lote Iniciada"
+
+#: src/simplyconvertfile/utils/text.py:271
+#, python-brace-format
+msgid "Batch conversion of {total} files to {extension} has started"
+msgstr "Conversão em lote de {total} arquivos para {extension} foi iniciada"
+
+#: src/simplyconvertfile/utils/text.py:273
+msgid "Batch Step Conversion Started"
+msgstr "Conversão de Etapa em Lote Iniciada"
+
+#: src/simplyconvertfile/utils/text.py:275
+#, python-brace-format
+msgid "Converting {filename} to {extension}"
+msgstr "Convertendo {filename} para {extension}"
+
+#: src/simplyconvertfile/utils/text.py:277
+msgid "Batch Conversion Cancelled"
+msgstr "Conversão em Lote Cancelada"
+
+#: src/simplyconvertfile/utils/text.py:279
+#, python-brace-format
+msgid ""
+"Conversion cancelled after processing {completed} of {total} files to "
+"{extension}"
+msgstr ""
+"Conversão cancelada após processar {completed} de {total} arquivos para "
+"{extension}"
+
+#: src/simplyconvertfile/utils/text.py:281
+msgid "Conversion Cancelled"
+msgstr "Conversão Cancelada"
+
+#: src/simplyconvertfile/utils/text.py:283
+#, python-brace-format
+msgid "File conversion to {extension} was cancelled"
+msgstr "Conversão de arquivo para {extension} foi cancelada"
+
+#: src/simplyconvertfile/utils/text.py:285
+msgid "Settings Error"
+msgstr "Erro de Configurações"
+
+#: src/simplyconvertfile/utils/text.py:287
+#, fuzzy
+msgid ""
+"User settings file is corrupted\n"
+"(~/.config/simplyconvertfile/user_settings.json)\n"
+"Using default settings instead."
+msgstr ""
+"Arquivo de configurações do usuário está corrompido\n"
+"(~/.config/simplyconvertfile/user_settings.json)\n"
+"Usando configurações padrão em vez disso."
+
+#: src/simplyconvertfile/utils/text.py:291
+msgid "Missing Conversion Tool"
+msgstr "Ferramenta de Conversão Ausente"
+
+#: src/simplyconvertfile/utils/text.py:297
+msgid "Dangerous Command Blocked"
+msgstr "Comando perigoso bloqueado"
+
+#: src/simplyconvertfile/utils/text.py:299
+#, python-brace-format
+msgid ""
+"A potentially dangerous command was blocked.\n"
+"\n"
+"Reason: {reason}\n"
+"\n"
+"Command: {command}\n"
+"\n"
+"If you need to allow dangerous commands, enable the "
+"'allow_dangerous_commands' option in your user settings."
+msgstr ""
+"Um comando potencialmente perigoso foi bloqueado.\n"
+"\n"
+"Motivo: {reason}\n"
+"\n"
+"Comando: {command}\n"
+"\n"
+"Se você precisar permitir comandos perigosos, ative a opção "
+"'allow_dangerous_commands' nas configurações do usuário."
+
+#: src/simplyconvertfile/utils/text.py:305
+msgid "Potentially Dangerous Command"
+msgstr "Comando potencialmente perigoso"
+
+#: src/simplyconvertfile/utils/text.py:307
+#, python-brace-format
+msgid ""
+"The following command contains a potentially dangerous operation and "
+"requires your confirmation to proceed.\n"
+"\n"
+"Reason: {reason}\n"
+"\n"
+"Command:\n"
+"{command}"
+msgstr ""
+"O seguinte comando contém uma operação potencialmente perigosa e requer sua "
+"confirmação para prosseguir.\n"
+"\n"
+"Motivo: {reason}\n"
+"\n"
+"Comando:\n"
+"{command}"
+
+#: src/simplyconvertfile/utils/text.py:312
+msgid "Continue Anyway"
+msgstr "Continuar mesmo assim"
+
+#: src/simplyconvertfile/utils/text.py:315
+msgid "privilege escalation"
+msgstr "escalação de privilégios"
+
+#: src/simplyconvertfile/utils/text.py:316
+msgid "file deletion"
+msgstr "exclusão de arquivo"
+
+#: src/simplyconvertfile/utils/text.py:317
+msgid "directory deletion"
+msgstr "exclusão de diretório"
+
+#: src/simplyconvertfile/utils/text.py:318
+msgid "file destruction"
+msgstr "destruição de arquivo"
+
+#: src/simplyconvertfile/utils/text.py:319
+msgid "file truncation"
+msgstr "truncamento de arquivo"
+
+#: src/simplyconvertfile/utils/text.py:320
+msgid "raw disk operation"
+msgstr "operação de disco raw"
+
+#: src/simplyconvertfile/utils/text.py:321
+msgid "filesystem creation"
+msgstr "criação de sistema de arquivos"
+
+#: src/simplyconvertfile/utils/text.py:322
+msgid "disk partitioning"
+msgstr "particionamento de disco"
+
+#: src/simplyconvertfile/utils/text.py:323
+msgid "filesystem signature removal"
+msgstr "remoção de assinatura de sistema de arquivos"
+
+#: src/simplyconvertfile/utils/text.py:324
+msgid "block device discard"
+msgstr "descartar dispositivo de bloco"
+
+#: src/simplyconvertfile/utils/text.py:325
+msgid "system shutdown"
+msgstr "desligamento do sistema"
+
+#: src/simplyconvertfile/utils/text.py:326
+msgid "system reboot"
+msgstr "reinicialização do sistema"
+
+#: src/simplyconvertfile/utils/text.py:327
+msgid "system power off"
+msgstr "desligamento do sistema"
+
+#: src/simplyconvertfile/utils/text.py:328
+msgid "system halt"
+msgstr "parada do sistema"
+
+#: src/simplyconvertfile/utils/text.py:329
+msgid "system init control"
+msgstr "controle de init do sistema"
+
+#: src/simplyconvertfile/utils/text.py:330
+msgid "system service control"
+msgstr "controle de serviços do sistema"
+
+#: src/simplyconvertfile/utils/text.py:331
+msgid "network access"
+msgstr "acesso à rede"
+
+#: src/simplyconvertfile/utils/text.py:332
+msgid "network download"
+msgstr "download de rede"
+
+#: src/simplyconvertfile/utils/text.py:333
+msgid "network connection"
+msgstr "conexão de rede"
+
+#: src/simplyconvertfile/utils/text.py:334
+msgid "remote shell access"
+msgstr "acesso shell remoto"
+
+#: src/simplyconvertfile/utils/text.py:335
+msgid "remote file copy"
+msgstr "cópia de arquivo remoto"
+
+#: src/simplyconvertfile/utils/text.py:336
+msgid "remote file sync"
+msgstr "sincronização de arquivo remoto"
+
+#: src/simplyconvertfile/utils/text.py:337
+msgid "file transfer"
+msgstr "transferência de arquivo"
+
+#: src/simplyconvertfile/utils/text.py:338
+msgid "permission change"
+msgstr "mudança de permissão"
+
+#: src/simplyconvertfile/utils/text.py:339
+msgid "ownership change"
+msgstr "mudança de proprietário"
+
+#: src/simplyconvertfile/utils/text.py:340
+msgid "group ownership change"
+msgstr "mudança de proprietário do grupo"
+
+#: src/simplyconvertfile/utils/text.py:341
+msgid "shell code execution"
+msgstr "execução de código shell"
+
+#: src/simplyconvertfile/utils/text.py:342
+msgid "dangerous operation"
+msgstr "operação perigosa"
+
+#: src/simplyconvertfile/utils/text.py:348
+msgid ""
+"Universal file format converter for Linux. Supports images, videos, audio, "
+"documents, and archives."
+msgstr ""
+"Conversor universal de formatos de arquivo para Linux. Suporta imagens, "
+"vídeos, áudio, documentos e arquivos."
+
+#: src/simplyconvertfile/utils/text.py:351
+msgid "File paths to convert (optional; opens picker if none)"
+msgstr ""
+"Caminhos dos arquivos para converter (opcional; abre o seletor se nenhum "
+"informado)"
+
+#: src/simplyconvertfile/utils/text.py:353
+#, python-brace-format
+msgid "For more info, visit {url}"
+msgstr "Para mais informações, visite {url}"
+
+#~ msgid "Converts a file to a different format"
+#~ msgstr "Converte um arquivo para um formato diferente"
+
+#~ msgid "Convert File"
+#~ msgstr "Converter Arquivo"

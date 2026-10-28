@@ -1,0 +1,22 @@
+SimplyConvertFile Backend Notice
+=============================
+
+This directory vendors the core conversion engine of SimplyConvertFile:
+- Upstream project: SimplyConvertFile
+- Upstream URL: https://github.com/ThigSchuch/SimplyConvertFile
+- Upstream Base Commit: a218d712f5a676b70adad51ae09a1ffae2849909
+- Pinned Revision Commit: a858f033ddddf7976fe0993ace3fc99431865642
+- License: GNU General Public License v3.0 or later (GPL-3.0-or-later)
+
+Modifications Disclosed:
+1. Pinned and self-contained execution:
+   Disabled background remote settings auto-update check (`_check_remote_settings`)
+   in `simplyconvertfile/config/settings.py` so the backend operates purely offline,
+   deterministically, and without network execution or mutation.
+2. Extended document conversion filters:
+   Added LibreOffice headless conversion templates in `simplyconvertfile/config/settings.json`
+   for PDF, ODP, and PPTX to DOCX, ODT, and RTF formats.
+3. Safe target output handling:
+   Adjusted `simplyconvertfile/converters/helpers/file_manager.py` to prevent accidental
+   unlinking of pre-existing user files in the source directory when a dedicated
+   custom output directory is specified.
