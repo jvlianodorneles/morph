@@ -17,6 +17,7 @@ from simplyconvertfile.ui import Gtk, ProgressbarDialogWindow
 from simplyconvertfile.utils import text
 from simplyconvertfile.utils.logging import logger
 
+from .commands import CommandParser
 from .constants import SHELL_OPERATORS
 from .sanitizer import CommandSanitizer
 
@@ -279,7 +280,7 @@ class CommandExecutor:
         shell_builtins = shell_builtins or set()
         needs_shell = any(
             (cmd[0] in shell_builtins if cmd else False)
-            or (len(cmd) > 1 and any(op in cmd[1] for op in SHELL_OPERATORS))
+            or (len(cmd) == 2 and CommandParser.is_shell_command(cmd[1]))
             for cmd in commands
         )
 
@@ -306,7 +307,7 @@ class CommandExecutor:
 
         command_parts = []
         for cmd in commands:
-            if len(cmd) == 2 and any(op in cmd[1] for op in SHELL_OPERATORS):
+            if len(cmd) == 2 and CommandParser.is_shell_command(cmd[1]):
                 command_parts.append(cmd[1])
             else:
                 command_parts.append(shlex.join(cmd))

@@ -219,12 +219,12 @@ class SettingsManager:
 
         logger.debug("Loading settings from disk (force_reload={})", force_reload)
         try:
-            system_settings = self._load_json_file(self._system_config_file)
-            logger.debug("Loaded system settings successfully")
+            system_settings = self._load_json_file(self._default_config_file)
+            logger.debug("Loaded vendored default settings successfully")
         except (FileNotFoundError, json.JSONDecodeError):
             try:
-                system_settings = self._load_json_file(self._default_config_file)
-                logger.debug("Loaded default settings as fallback")
+                system_settings = self._load_json_file(self._system_config_file)
+                logger.debug("Loaded system settings as fallback")
             except (FileNotFoundError, json.JSONDecodeError):
                 system_settings = {
                     "version": "1.0.0",

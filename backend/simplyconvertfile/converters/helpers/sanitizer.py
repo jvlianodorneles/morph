@@ -14,6 +14,7 @@ from typing import List, Optional, Union
 from simplyconvertfile.utils.logging import logger
 from simplyconvertfile.utils.text import text
 
+from .commands import CommandParser
 from .constants import DANGEROUS_COMMAND_CATEGORIES, DANGEROUS_COMMANDS
 
 
@@ -64,24 +65,48 @@ class CommandSanitizer:
             "Blocked command 'sudo' detected (privilege escalation)"
         """
         if isinstance(command, list):
+            if not command:
+                return None
             # For list-form commands, check if it's a shell command
-            # (tool, full_cmd_str) pair or a regular argument list
-            if len(command) == 2 and isinstance(command[1], str):
-                # Could be (tool, shell_cmd_str) — check the full string
-                result = self._check_command_string(command[1])
-                if result:
-                    return result
-            # Also check the first element as the executable
-            cmd_str = " ".join(str(c) for c in command)
-            return self._check_command_string(cmd_str)
+            # (tool, full_cmd_str) pair or a regular direct-execution argument list
+            if (
+                len(command) == 2
+                and isinstance(command[1], str)
+                and CommandParser.is_shell_command(command[1])
+            ):
+                return self._check_command_string(command[1])
+
+            return self._check_executable_name(
+                str(command[0]), " ".join(str(c) for c in command)
+            )
 
         return self._check_command_string(str(command))
+
+    def _check_executable_name(
+        self, executable: str, full_command_context: str
+    ) -> Optional[str]:
+        """Check whether a single executable name is in the dangerous commands set."""
+        if not executable:
+            return None
+        base_name = PurePosixPath(executable).name
+        if base_name in DANGEROUS_COMMANDS:
+            category = DANGEROUS_COMMAND_CATEGORIES.get(
+                base_name, text.Security.CATEGORY_DANGEROUS_OPERATION
+            )
+            reason = f"Blocked command '{base_name}' detected ({category})"
+            logger.warning(
+                "Dangerous command detected: '{}' in command: {}",
+                base_name,
+                full_command_context[:100],
+            )
+            return reason
+        return None
 
     def _check_command_string(self, command_str: str) -> Optional[str]:
         """Check a command string for dangerous executables.
 
-        Splits the command on shell operators and checks each sub-command's
-        executable against the dangerous commands set.
+        Splits the command on unquoted shell operators and checks each
+        sub-command's executable against the dangerous commands set.
 
         Args:
             command_str: Raw command string to analyze.
@@ -92,8 +117,10 @@ class CommandSanitizer:
         if not command_str or not command_str.strip():
             return None
 
-        # Split on shell operators to get individual sub-commands
-        sub_commands = self._SPLIT_PATTERN.split(command_str)
+        # Split on unquoted shell operators to get individual sub-commands
+        sub_commands = CommandParser.split_unquoted(
+            command_str, ("&&", "||", "|", ";")
+        )
 
         for sub_cmd in sub_commands:
             sub_cmd = sub_cmd.strip()
@@ -104,19 +131,8 @@ class CommandSanitizer:
             if not executable:
                 continue
 
-            # Strip path prefix (e.g., /usr/bin/rm -> rm)
-            base_name = PurePosixPath(executable).name
-
-            if base_name in DANGEROUS_COMMANDS:
-                category = DANGEROUS_COMMAND_CATEGORIES.get(
-                    base_name, text.Security.CATEGORY_DANGEROUS_OPERATION
-                )
-                reason = f"Blocked command '{base_name}' detected ({category})"
-                logger.warning(
-                    "Dangerous command detected: '{}' in command: {}",
-                    base_name,
-                    command_str[:100],
-                )
+            reason = self._check_executable_name(executable, command_str)
+            if reason:
                 return reason
 
         return None

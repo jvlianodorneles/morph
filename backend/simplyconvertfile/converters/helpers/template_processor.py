@@ -170,7 +170,9 @@ class TemplateProcessor:
             )
             logger.debug("Formatted command string: {}", command_str)
 
-            if (temp_dir_path or temp_file_path) and "&&" in command_str:
+            if (temp_dir_path or temp_file_path) and len(
+                CommandParser.split_chained_commands(command_str)
+            ) > 1:
                 command_str = self._inject_file_validation(
                     command_str, temp_dir_path, temp_file_path
                 )
@@ -213,8 +215,8 @@ class TemplateProcessor:
             logger.warning("Empty command string provided")
             return [], [], False
 
-        if "&&" in command_str:
-            commands = CommandParser.split_chained_commands(command_str)
+        commands = CommandParser.split_chained_commands(command_str)
+        if len(commands) > 1:
             chained_commands = []
             for cmd in commands:
                 parsed_cmd, _ = CommandParser.parse_command(cmd)
@@ -264,31 +266,40 @@ class TemplateProcessor:
             >>> # After:
             >>> # "libreoffice --convert-to pdf --outdir /tmp/xyz file.docx && test -f '/tmp/xyz/file.pdf' && mv /tmp/xyz/file.pdf out.pdf"
         """
-        import re
+        import shlex
 
-        if not (temp_dir_path or temp_file_path) or " && " not in command_str:
-            return command_str
-
-        steps = command_str.split(" && ")
-        if not steps:
+        steps = CommandParser.split_chained_commands(command_str)
+        if not (temp_dir_path or temp_file_path) or len(steps) <= 1:
             return command_str
 
         validated_steps = [steps[0]]
 
-        for i, step in enumerate(steps[1:], start=1):
+        for step in steps[1:]:
             step_stripped = step.strip()
+            try:
+                tokens = shlex.split(step_stripped, posix=True)
+            except ValueError:
+                tokens = []
 
-            if any(step_stripped.startswith(cmd) for cmd in ["mv ", "cp ", "cat "]):
-                match = re.match(
-                    r"(mv|cp|cat)\s+['\"]?([^'\"]+?)['\"]?\s+", step_stripped
-                )
-                if match:
-                    source_file = match.group(2).strip()
-
-                    if temp_dir_path and str(temp_dir_path) in source_file:
-                        validated_steps.append(f"test -f '{source_file}'")
-                    elif temp_file_path and str(temp_file_path) in source_file:
-                        validated_steps.append(f"test -f '{source_file}'")
+            if tokens and tokens[0] in ("mv", "cp", "cat") and len(tokens) >= 2:
+                source_file = tokens[1]
+                if (temp_dir_path and str(temp_dir_path) in source_file) or (
+                    temp_file_path and str(temp_file_path) in source_file
+                ):
+                    escaped_source = source_file.replace("'", "'\"'\"'")
+                    validated_steps.append(f"test -f '{escaped_source}'")
+            elif (
+                tokens
+                and any(t.endswith("python_helper.py") for t in tokens[:3])
+                and len(tokens) >= 2
+            ):
+                for arg in tokens[1:]:
+                    if (temp_dir_path and str(temp_dir_path) in arg) or (
+                        temp_file_path and str(temp_file_path) in arg
+                    ):
+                        escaped_source = arg.replace("'", "'\"'\"'")
+                        validated_steps.append(f"test -f '{escaped_source}'")
+                        break
 
             validated_steps.append(step)
 

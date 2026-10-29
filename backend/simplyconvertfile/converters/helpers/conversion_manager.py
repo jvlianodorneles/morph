@@ -272,7 +272,7 @@ class ConversionManager:
                 tools = CommandParser.extract_tools_from_shell(command[0])
                 for tool in tools:
                     check_tool(tool)
-            elif len(command) == 2 and any(op in command[1] for op in SHELL_OPERATORS):
+            elif len(command) == 2 and CommandParser.is_shell_command(command[1]):
                 tools = CommandParser.extract_tools_from_shell(command[1])
                 for tool in tools:
                     check_tool(tool)
@@ -284,7 +284,7 @@ class ConversionManager:
             for cmd in chained_commands:
                 if not cmd:
                     continue
-                if len(cmd) == 2 and any(op in cmd[1] for op in SHELL_OPERATORS):
+                if len(cmd) == 2 and CommandParser.is_shell_command(cmd[1]):
                     tools = CommandParser.extract_tools_from_shell(cmd[1])
                     for tool in tools:
                         check_tool(tool)

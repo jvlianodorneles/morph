@@ -42,8 +42,120 @@ class CommandParser:
             "output_dir",
             "temp_file",
             "temp_dir",
+            "python_helper",
         }
     )
+
+    _PYTHON_HELPER_PATH = Path(__file__).resolve().parent / "python_helper.py"
+
+    @staticmethod
+    def _get_quote_context(text_str: str, end_pos: int) -> Optional[str]:
+        """Determine POSIX shell quote context (\"'\", '\"', or None) at end_pos."""
+        quote: Optional[str] = None
+        i = 0
+        limit = min(end_pos, len(text_str))
+        while i < limit:
+            ch = text_str[i]
+            if quote is None:
+                if ch == "\\":
+                    i += 2
+                    continue
+                if ch in ("'", '"'):
+                    quote = ch
+            elif quote == "'":
+                if ch == "'":
+                    quote = None
+            elif quote == '"':
+                if ch == "\\":
+                    i += 2
+                    continue
+                if ch == '"':
+                    quote = None
+            i += 1
+        return quote
+
+    @staticmethod
+    def _strip_quoted_segments(command: str) -> str:
+        """Replace contents of quoted strings with empty quotes for operator scanning."""
+        out: List[str] = []
+        quote: Optional[str] = None
+        i = 0
+        n = len(command)
+        while i < n:
+            ch = command[i]
+            if quote is None:
+                if ch == "\\":
+                    out.append("_")
+                    i += 2
+                    continue
+                if ch in ("'", '"'):
+                    quote = ch
+                    out.append(ch)
+                else:
+                    out.append(ch)
+            elif quote == "'":
+                if ch == "'":
+                    quote = None
+                    out.append(ch)
+            elif quote == '"':
+                if ch == "\\":
+                    i += 2
+                    continue
+                if ch == '"':
+                    quote = None
+                    out.append(ch)
+            i += 1
+        return "".join(out)
+
+    @staticmethod
+    def split_unquoted(command: str, operators: Tuple[str, ...]) -> List[str]:
+        """Split a command string only on operators occurring outside quotes."""
+        if not command:
+            return []
+        # Sort operators longest-first so '&&' matches before '&' and '||' before '|'
+        sorted_ops = sorted(operators, key=len, reverse=True)
+        parts: List[str] = []
+        quote: Optional[str] = None
+        start = 0
+        i = 0
+        n = len(command)
+        while i < n:
+            ch = command[i]
+            if quote is None:
+                if ch == "\\":
+                    i += 2
+                    continue
+                if ch in ("'", '"'):
+                    quote = ch
+                    i += 1
+                    continue
+                matched_op = None
+                for op in sorted_ops:
+                    if command.startswith(op, i):
+                        matched_op = op
+                        break
+                if matched_op is not None:
+                    segment = command[start:i].strip()
+                    if segment:
+                        parts.append(segment)
+                    i += len(matched_op)
+                    start = i
+                    continue
+            elif quote == "'":
+                if ch == "'":
+                    quote = None
+            elif quote == '"':
+                if ch == "\\":
+                    i += 2
+                    continue
+                if ch == '"':
+                    quote = None
+            i += 1
+
+        tail = command[start:].strip()
+        if tail:
+            parts.append(tail)
+        return parts
 
     @staticmethod
     def is_shell_command(command: str) -> bool:
@@ -69,18 +181,19 @@ class CommandParser:
             False
         """
         try:
-            if any(op in command for op in ["&&", "||"]):
+            unquoted = CommandParser._strip_quoted_segments(command)
+            if any(op in unquoted for op in ["&&", "||", ";"]):
                 return True
 
-            if " | " in command:
+            if " | " in unquoted:
                 return True
 
             for op in [">", ">>", "<", "<<"]:
-                if f" {op} " in command:
+                if f" {op} " in unquoted:
                     return True
-                if command.rstrip().endswith(f" {op}"):
+                if unquoted.rstrip().endswith(f" {op}"):
                     return True
-                if command.lstrip().startswith(f"{op} "):
+                if unquoted.lstrip().startswith(f"{op} "):
                     return True
 
             return False
@@ -108,12 +221,16 @@ class CommandParser:
             >>> print(tools)
             ['ffmpeg', 'rm']
         """
-        tools = re.findall(r"(?:^|\||&&|\|\|)\s*([a-zA-Z0-9_-]+)", command)
-        return [tool for tool in tools if tool]
+        tools: List[str] = []
+        for sub_cmd in CommandParser.split_unquoted(command, ("&&", "||", "|", ";")):
+            match = re.match(r"^\s*([a-zA-Z0-9_./-]+)", sub_cmd)
+            if match:
+                tools.append(Path(match.group(1)).name)
+        return tools
 
     @staticmethod
     def split_chained_commands(command: str) -> List[str]:
-        """Split a command string by the && operator into individual commands.
+        """Split a command string by unquoted && operators into individual commands.
 
         Breaks down multi-step conversion commands into separate executable
         parts for sequential processing.
@@ -130,7 +247,7 @@ class CommandParser:
             >>> print(len(commands))
             2
         """
-        return [cmd.strip() for cmd in command.split(" && ")]
+        return CommandParser.split_unquoted(command, (" && ",))
 
     @staticmethod
     def parse_command(command_str: str) -> Tuple[List[str], bool]:
@@ -157,7 +274,7 @@ class CommandParser:
             True
         """
         if not CommandParser.is_shell_command(command_str):
-            return shlex.split(command_str), False
+            return shlex.split(command_str, posix=True), False
         first_tool = command_str.split()[0] if command_str.strip() else "sh"
         return [first_tool, command_str], True
 
@@ -198,7 +315,9 @@ class CommandParser:
             'convert /tmp/input.jpg /tmp/output.png'
         """
         logger.debug("Formatting command template: {}", template)
-        format_args = {}
+        format_args = {
+            "python_helper": str(CommandParser._PYTHON_HELPER_PATH),
+        }
 
         if input_file:
             format_args["input"] = str(input_file)
@@ -233,17 +352,16 @@ class CommandParser:
 
     @staticmethod
     def _substitute_with_escaping(template: str, format_args: dict) -> str:
-        """Replace {key} placeholders with context-aware shell escaping.
+        """Replace {key} placeholders with POSIX-compliant shell escaping.
 
-        For each placeholder occurrence, detects the quoting context by
-        counting unescaped double quotes before it in the template:
-        - Even count (normal shell context): escapes ' as '"'"'
-        - Odd count (inside double-quoted string, e.g. python3 -c "..."):
-          escapes ' as \\'
-
-        This handles mixed-context templates where the same placeholder
-        appears in both shell single-quote and Python/double-quote contexts
-        (e.g. chained libreoffice + python3 commands).
+        For each placeholder occurrence, determines the active POSIX quote context
+        at the placeholder position:
+        - Inside single quotes ('...'): all characters (including backslashes,
+          double quotes, $, and `) are literal except ', which is escaped by
+          closing single quote, inserting "'", and reopening single quote ('"'"').
+        - Inside double quotes ("..."): exits double quotes, inserts shlex.quote(value),
+          and re-enters double quotes so backslashes and quotes are preserved literally.
+        - Unquoted context: wraps value with shlex.quote(value).
 
         Args:
             template: Command template with {key} placeholders.
@@ -266,12 +384,14 @@ class CommandParser:
             key = match.group(1)
             value = str(format_args[key])
 
-            if key in CommandParser._PATH_KEYS and "'" in value:
-                prefix = template[: match.start()]
-                if prefix.count('"') % 2 == 1:
-                    value = value.replace("'", "\\'")
-                else:
+            if key in CommandParser._PATH_KEYS:
+                quote_ctx = CommandParser._get_quote_context(template, match.start())
+                if quote_ctx == "'":
                     value = value.replace("'", "'\"'\"'")
+                elif quote_ctx == '"':
+                    value = '"' + shlex.quote(value) + '"'
+                else:
+                    value = shlex.quote(value)
 
             result = result[: match.start()] + value + result[match.end() :]
 

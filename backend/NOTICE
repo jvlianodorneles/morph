@@ -20,3 +20,10 @@ Modifications Disclosed:
    Adjusted `simplyconvertfile/converters/helpers/file_manager.py` to prevent accidental
    unlinking of pre-existing user files in the source directory when a dedicated
    custom output directory is specified.
+4. Eliminated inline Python interpolation and hardened path quoting:
+   Replaced all `python3 -c` rules in `simplyconvertfile/config/settings.json` with
+   invocations of a fixed helper script (`simplyconvertfile/converters/helpers/python_helper.py`)
+   receiving input and output file paths strictly as separate `sys.argv` arguments,
+   and updated `commands.py`, `template_processor.py`, `execution.py`, `conversion_manager.py`,
+   and `sanitizer.py` to preserve backslashes, single quotes, double quotes, and combinations
+   thereof as literal path values across the entire conversion pipeline.
